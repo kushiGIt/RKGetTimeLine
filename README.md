@@ -6,7 +6,7 @@ This is a class to get the information of SNS.
 
 #USAGE
 
-RKGetFacebookTimeLine*testFacebook=[[RKGetFacebookTimeLine alloc]init];
+    RKGetFacebookTimeLine*testFacebook=[[RKGetFacebookTimeLine alloc]init];
     
     [testFacebook getFacebookTimelineFromServer:nil completion:^(NSArray*resultsArray,NSError*error){
     
