@@ -22,7 +22,13 @@
     
     RKGetFacebookTimeLine*testFacebook=[[RKGetFacebookTimeLine alloc]init];
     
-    [testFacebook getFacebookTimelineFromServer:nil completion:^(NSArray*resultsArray,NSError*error){
+    NSDictionary*readOnlyOptions=@{
+                                   ACFacebookAppIdKey : @"878372405515997",
+                                   ACFacebookAudienceKey : ACFacebookAudienceOnlyMe,
+                                   ACFacebookPermissionsKey : @[@"email"]
+                                   };
+    
+    [testFacebook getFacebookTimelineFromServer:readOnlyOptions completion:^(NSArray*resultsArray,NSError*error){
         NSLog(@"%@",resultsArray);
         NSLog(@"%@",error);
     }];

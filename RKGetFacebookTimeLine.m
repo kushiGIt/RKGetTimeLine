@@ -11,15 +11,12 @@
 @implementation RKGetFacebookTimeLine{
     
 }
--(void)getFacebookTimelineFromServer:(NSDictionary*)option completion:(CallbackHandlerForServer)handler{
+-(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer)handler{
     
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
     
-    NSDictionary*readOnlyOptions=@{ ACFacebookAppIdKey : @"1695130440712382",ACFacebookAudienceKey : ACFacebookAudienceOnlyMe,ACFacebookPermissionsKey:@[@"email"]};
-    
-    
-    [accountStore requestAccessToAccountsWithType:accountType options:readOnlyOptions completion:^(BOOL granted, NSError *accountsError){
+    [accountStore requestAccessToAccountsWithType:accountType options:permissionDic completion:^(BOOL granted, NSError *accountsError){
         
         if (granted==YES) {
             
@@ -33,7 +30,7 @@
                 NSString *accessToken = [facebookCredential oauthToken];
                 
                 NSURL*url=[NSURL URLWithString:@"https://graph.facebook.com/me/home"];
-                NSDictionary*parametersDic=[[NSDictionary alloc]initWithObjectsAndKeys:accessToken,@"access_token",@300,@"limit",nil];
+                NSDictionary*parametersDic=[[NSDictionary alloc]initWithObjectsAndKeys:accessToken,@"access_token",@500,@"limit", nil];
                 
                 SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:url parameters:parametersDic];
                 request.account = facebookAccount;
@@ -49,7 +46,7 @@
                             NSError *jsonError;
                             NSLog(@"Completion of receiving Facebook timeline data. Byte=%lu byte.",(unsigned long)responseData.length);
                             
-                            NSArray*responseArray=[NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:&jsonError];
+                            NSArray*responseArray=[NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&jsonError];
                             
                             if (jsonError) {
                                 
@@ -57,22 +54,20 @@
                                 
                             }else{
                                 
-                                if ([[[responseArray valueForKey:@"error"]valueForKey:@"message"]isEqual:[NSNull null]]) {
+                                if ([[responseArray valueForKey:@"error"]valueForKey:@"message"]) {
                                     
-                                    NSString*errorCode=[NSString stringWithFormat:@"%@",[[responseArray valueForKey:@"errors"]valueForKey:@"code"][0]];
-                                    NSString*errorMessege=[NSString stringWithFormat:@"%@",[[responseArray valueForKey:@"errors"]valueForKey:@"message"][0]];
-                                    NSLog(@"%@",errorCode);
-                                    NSLog(@"%@",errorMessege);
+                                    NSDictionary*facebookErrorDic=[[NSDictionary alloc]initWithDictionary:[responseArray valueForKey:@"error"]];
+                                    
+                                    NSString*errorCode=[NSString stringWithFormat:@"%@",[facebookErrorDic objectForKey:@"code"]];
+                                    NSString*errorMessege=[NSString stringWithFormat:@"%@",[facebookErrorDic objectForKey:@"message"]];
                                     
                                     NSMutableDictionary*errDetails = [NSMutableDictionary dictionary];
                                     [errDetails setValue:errorMessege forKey:NSLocalizedDescriptionKey];
                                     
                                     NSError*resultsError = [NSError errorWithDomain:@"https://graph.facebook.com/me/home" code:[errorCode integerValue] userInfo:errDetails];
                                     
-                                    NSArray*resultsArray=[[NSArray alloc]initWithObjects:[NSNull null], nil];
-                                    
                                     if (handler) {
-                                        handler(resultsArray,resultsError);
+                                        handler(nil,resultsError);
                                     }
                                     
                                 }else{
@@ -83,18 +78,14 @@
                                         [errDetails setValue:@"There is no new data." forKey:NSLocalizedDescriptionKey];
                                         NSError*resultsError = [NSError errorWithDomain:@"https://graph.facebook.com/me/home" code:200 userInfo:errDetails];
                                         
-                                       NSArray*resultsArray=[[NSArray alloc]initWithObjects:[NSNull null], nil];
-                                        
                                         if (handler) {
-                                            handler(resultsArray,resultsError);
+                                            handler(nil,resultsError);
                                         }
                                         
                                     }else{
                                         
-                                        NSArray*resultsArray=[[NSArray alloc]initWithArray:[responseArray valueForKey:@"data"]];
-                                        
                                         if (handler) {
-                                            handler(resultsArray,nil);
+                                            handler([responseArray valueForKey:@"data"],nil);
                                         }
                                         
                                     }
@@ -110,10 +101,8 @@
                             [errDetails setValue:@"There was no response from the server." forKey:NSLocalizedDescriptionKey];
                             NSError*resultsError = [NSError errorWithDomain:@"https://graph.facebook.com/me/home" code:201 userInfo:errDetails];
                             
-                            NSArray*resultsArray=[[NSMutableArray alloc]initWithObjects:[NSNull null],nil];
-                            
                             if (handler) {
-                                handler(resultsArray,resultsError);
+                                handler(nil,resultsError);
                             }
                             
                         }
@@ -132,7 +121,7 @@
                 
             }
         }else{
-#warning here!!
+            
             NSMutableDictionary*errDetails = [NSMutableDictionary dictionary];
             [errDetails setValue:@"The user did not accept the permission of the account of app." forKey:NSLocalizedDescriptionKey];
             NSError*resultsError = [NSError errorWithDomain:@"https://graph.facebook.com/me/home" code:203 userInfo:errDetails];
