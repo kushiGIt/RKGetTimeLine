@@ -4,7 +4,7 @@ This is a class to get the information of SNS.
 
 
 
-############USAGE############
+#USAGE
 
 RKGetFacebookTimeLine*testFacebook=[[RKGetFacebookTimeLine alloc]init];
     
@@ -14,7 +14,5 @@ RKGetFacebookTimeLine*testFacebook=[[RKGetFacebookTimeLine alloc]init];
     
     }];
 
-############END############
-
-##########Warning##########
+#Warning
 There are cases where part of the specification is changed,because since it has not been completed..
