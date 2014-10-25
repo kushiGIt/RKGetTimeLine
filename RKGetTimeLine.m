@@ -7,7 +7,7 @@
 //
 
 #import "RKGetTimeLine.h"
-
+#import "RKGetFacebookTimeLine.h"
 
 @implementation RKGetTimeLineData{
     NSUserDefaults*defaults;
