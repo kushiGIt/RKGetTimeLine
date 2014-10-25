@@ -21,10 +21,16 @@ typedef enum{
 
 typedef enum {
     
-    GetTimeLineType_FACEBOOK=1,
-    GetTimeLineType_TWITTER=2,
+    GetTimeLineAccountType_FACEBOOK=1,
+    GetTimeLineAccountType_TWITTER=2,
 
-}RKGetTimeLineDataType;
+}RKGetTimeLineAccountType;
+
+typedef enum : NSInteger{
+    
+    RKGetTimeLineDataError_AccountTypeInvalid
+    
+}RKGetTimeLineDataErrorCode;
 
 @class RKGetTimeLineData;
 
