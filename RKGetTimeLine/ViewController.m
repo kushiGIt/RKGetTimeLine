@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "RKGetTimeLine.h"
+#import "RKGetFacebookTimeLine.h"
 
 @interface ViewController ()
 
@@ -17,6 +19,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    RKGetFacebookTimeLine*testFacebook=[[RKGetFacebookTimeLine alloc]init];
+    
+    [testFacebook getFacebookTimelineFromServer:nil completion:^(NSArray*resultsArray,NSError*error){
+        NSLog(@"%@",resultsArray);
+        NSLog(@"%@",error);
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

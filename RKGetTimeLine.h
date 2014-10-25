@@ -24,7 +24,7 @@ typedef enum {
     GetTimeLineAccountType_FACEBOOK=1,
     GetTimeLineAccountType_TWITTER=2,
 
-}RKGetTimeLineAccountType;
+}GetTimeLineAccountType;
 
 typedef enum : NSInteger{
     
@@ -41,6 +41,7 @@ typedef enum : NSInteger{
 @property(nonatomic,weak)id<RKGetTimeLineDataDelegate>delegate;
 
 -(id)init;
+-(void)GetServerData_Type:(GetTimeLineAccountType)accountType;
 
 @end
 

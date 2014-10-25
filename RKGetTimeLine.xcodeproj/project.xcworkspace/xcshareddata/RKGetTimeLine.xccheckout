@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8AD1B8CA-092F-4B66-8BF2-48985551E8F2</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RKGetTimeLine</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>34DC0DD752F539A662DA90A23163577D76D8824B</key>
+		<string>https://github.com/kushiGIt/RKGetTimeLine.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RKGetTimeLine.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>34DC0DD752F539A662DA90A23163577D76D8824B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/kushiGIt/RKGetTimeLine.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>34DC0DD752F539A662DA90A23163577D76D8824B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>34DC0DD752F539A662DA90A23163577D76D8824B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RKGetTimeLine</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -8,6 +8,7 @@
 
 #import "RKGetTimeLine.h"
 
+
 @implementation RKGetTimeLineData{
     NSUserDefaults*defaults;
 }
@@ -27,7 +28,7 @@
 }
 #pragma merk - Set Account type
 
--(void)SetAccountType:(RKGetTimeLineAccountType)accountType{
+-(void)GetServerData_Type:(GetTimeLineAccountType)accountType{
     
     switch (accountType) {
         
@@ -40,14 +41,10 @@
             break;
         
         }default:{
-            
-            NSDictionary *errorDic = @{
-                                       NSLocalizedDescriptionKey:@"Number cannot be divided by zero.",
-                                       NSLocalizedRecoverySuggestionErrorKey:@"You can set numberB except zero"
-                                       };
             NSException*exception=[[NSException alloc]initWithName:@"AccountTypeException"
-                                                            reason:[NSString stringWithFormat:@"This account type is an exception. \nIncorrect　Account type=%u",accountType]
+                                                            reason:[NSString stringWithFormat:@"\nThis account type is an exception. \nIncorrect　Account type=%u\n",accountType]
                                                           userInfo:nil];
+            NSLog(@"%@",exception);
             
             break;
         }
