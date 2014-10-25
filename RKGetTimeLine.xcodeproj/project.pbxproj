@@ -14,8 +14,8 @@
 		7740FDB319FB2C2500C56F58 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7740FDB219FB2C2500C56F58 /* Images.xcassets */; };
 		7740FDB619FB2C2500C56F58 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7740FDB419FB2C2500C56F58 /* LaunchScreen.xib */; };
 		7740FDC219FB2C2500C56F58 /* RKGetTimeLineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740FDC119FB2C2500C56F58 /* RKGetTimeLineTests.m */; };
-		7740FDCD19FB2C5500C56F58 /* RKGetTimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740FDCC19FB2C5500C56F58 /* RKGetTimeLine.m */; };
 		7740FDD619FB3AB100C56F58 /* RKGetFacebookTimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740FDD519FB3AB100C56F58 /* RKGetFacebookTimeLine.m */; };
+		7792F57919FBFCB400505445 /* RKGetTwitterTimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7792F57819FBFCB400505445 /* RKGetTwitterTimeLine.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,10 +42,10 @@
 		7740FDBB19FB2C2500C56F58 /* RKGetTimeLineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RKGetTimeLineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7740FDC019FB2C2500C56F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7740FDC119FB2C2500C56F58 /* RKGetTimeLineTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKGetTimeLineTests.m; sourceTree = "<group>"; };
-		7740FDCB19FB2C5500C56F58 /* RKGetTimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKGetTimeLine.h; sourceTree = "<group>"; };
-		7740FDCC19FB2C5500C56F58 /* RKGetTimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKGetTimeLine.m; sourceTree = "<group>"; };
 		7740FDD419FB3AB100C56F58 /* RKGetFacebookTimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKGetFacebookTimeLine.h; sourceTree = "<group>"; };
 		7740FDD519FB3AB100C56F58 /* RKGetFacebookTimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKGetFacebookTimeLine.m; sourceTree = "<group>"; };
+		7792F57719FBFCB400505445 /* RKGetTwitterTimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKGetTwitterTimeLine.h; sourceTree = "<group>"; };
+		7792F57819FBFCB400505445 /* RKGetTwitterTimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKGetTwitterTimeLine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,8 +131,8 @@
 			children = (
 				7740FDD419FB3AB100C56F58 /* RKGetFacebookTimeLine.h */,
 				7740FDD519FB3AB100C56F58 /* RKGetFacebookTimeLine.m */,
-				7740FDCB19FB2C5500C56F58 /* RKGetTimeLine.h */,
-				7740FDCC19FB2C5500C56F58 /* RKGetTimeLine.m */,
+				7792F57719FBFCB400505445 /* RKGetTwitterTimeLine.h */,
+				7792F57819FBFCB400505445 /* RKGetTwitterTimeLine.m */,
 			);
 			name = GetClass;
 			path = ..;
@@ -240,7 +240,7 @@
 			files = (
 				7740FDAE19FB2C2500C56F58 /* ViewController.m in Sources */,
 				7740FDAB19FB2C2500C56F58 /* AppDelegate.m in Sources */,
-				7740FDCD19FB2C5500C56F58 /* RKGetTimeLine.m in Sources */,
+				7792F57919FBFCB400505445 /* RKGetTwitterTimeLine.m in Sources */,
 				7740FDA819FB2C2500C56F58 /* main.m in Sources */,
 				7740FDD619FB3AB100C56F58 /* RKGetFacebookTimeLine.m in Sources */,
 			);

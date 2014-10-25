@@ -31,8 +31,13 @@ typedef void (^CallbackHandlerForServer)(NSArray * resultArray, NSError *error);
 @interface RKGetFacebookTimeLine : NSObject
 
 @property(nonatomic,weak)id<RKGetFacebookDelegate>delegate;
-
--(void)getFacebookTimelineFromServer:(NSDictionary*)option completion:(CallbackHandlerForServer)handler;
+/**
+ *  This method get a facebook post from the server.  When the prosess is finished,run completion block.
+ *
+ *  @param permissionDic {NSDictionary}
+ *  @param handler       {void}
+ */
+-(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer)handler;
 
 
 @end
