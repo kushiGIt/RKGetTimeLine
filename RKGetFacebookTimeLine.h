@@ -59,4 +59,6 @@ typedef void (^CallbackHandlerForEdit_FACEBOOK)(NSDictionary *resultsDic, NSErro
  */
 -(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer_FACEBOOK)handler;
 
+-(void)getFacebookTimelineNewlyWithCompletion:(CallbackHandlerForEdit_FACEBOOK)handler;
+
 @end

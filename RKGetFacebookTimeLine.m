@@ -15,10 +15,98 @@
     
     
     NSDictionary*permissionDic=@{ACFacebookAppIdKey : @"878372405515997",ACFacebookAudienceKey : ACFacebookAudienceOnlyMe,ACFacebookPermissionsKey : @[@"email",@"read_stream"]};
+    
     [self getFacebookTimelineFromServer:permissionDic completion:^(NSArray*resultsArray,NSError*getTimelineFromServerError,RKGetFacebookTimeLineError errorType){
+        
+        switch (errorType) {
+            
+            case RKGetFacebookTimeLineErrorType_Success:{
+                
+                NSLog(@"array contents = %@",[self editFacebookTimeline:resultsArray]);
+                
+                break;
+                
+            }default:{
+                
+                NSLog(@"%@",getTimelineFromServerError);
+                NSLog(@"%ld",errorType);
+                break;
+                
+            }
+        
+        }
         
     }];
 
+}
+-(NSArray*)editFacebookTimeline:(NSArray*)newsfeed{
+    
+    
+    NSMutableArray*array=[[NSMutableArray alloc]init];
+    
+    dispatch_group_t group = dispatch_group_create();
+    
+    for (int i=0; i<[newsfeed count];i++) {
+        
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_group_async(group, queue, ^{
+            
+            NSLog(@"task number:%d",i);
+            
+            NSMutableDictionary*dic=[[NSMutableDictionary alloc]init];
+            
+            //user name
+            [dic setObject:[[newsfeed valueForKey:@"from"]valueForKey:@"name"][i] forKey:@"USER_NAME"];
+            //user id
+            [dic setObject:[[newsfeed valueForKey:@"from"]valueForKey:@"id"][i] forKey:@"USER_ID"];
+            
+            //text data
+            [dic setObject:[newsfeed valueForKey:@"message"][i] forKey:@"TEXT"];
+            
+            //date data
+            NSString*Original_ISO_8601_Date=[NSString stringWithFormat:@"%@",[newsfeed valueForKey:@"created_time"][i]];
+            NSDate* date_converted;
+            NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+            date_converted = [formatter dateFromString:Original_ISO_8601_Date];
+            [dic setObject:date_converted forKey:@"POST_DATE"];
+            
+            //like data
+            if ([[[[newsfeed valueForKey:@"likes"]valueForKey:@"data"]objectAtIndex:i] isEqual:[NSNull null]]==YES) {
+                
+                [dic setObject:[NSNull null] forKey:@"LIKE_DATA"];
+                
+            }else{
+                
+                [dic setObject:[[[newsfeed valueForKey:@"likes"]valueForKey:@"data"]objectAtIndex:i] forKey:@"LIKE_DATA"];
+                
+            }
+            
+            //newsfeed picture
+            if ([[newsfeed valueForKey:@"picture"]isEqual:[NSNull null]]==YES) {
+                
+                [dic setObject:[NSNull null] forKey:@"PICTURE_DATA"];
+                
+            }else{
+                
+                [dic setObject:[[newsfeed valueForKey:@"picture"]objectAtIndex:i] forKey:@"PICTURE_DATA"];
+                
+            }
+            
+            
+            //set type Ex.)facebook,twitter
+            [dic setObject:@"FACEBOOK" forKey:@"TYPE"];
+            
+            [array addObject:dic];
+            
+            
+        });
+        
+    }
+    
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    
+    return array;
 }
 -(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer_FACEBOOK)handler{
     
@@ -45,7 +133,10 @@
                 request.account = facebookAccount;
                 
                 [request performRequestWithHandler:^(NSData*responseData,NSHTTPURLResponse*urlResponse,NSError*error){
-                        
+                    
+                    dispatch_queue_t queue = dispatch_queue_create("DATA_EDIT_SERIAL", DISPATCH_QUEUE_SERIAL);
+                    
+                    dispatch_sync(queue, ^{
                         if (error) {
                             NSLog(@"Facebook error==>%@",error);
                         }
@@ -115,9 +206,12 @@
                             }
                             
                         }
+
                     
+                    });
+                
                 }];
-            
+                
             }else{
                 
                 NSMutableDictionary*errDetails = [NSMutableDictionary dictionary];
@@ -129,6 +223,7 @@
                 }
                 
             }
+        
         }else{
             
             NSMutableDictionary*errDetails = [NSMutableDictionary dictionary];
