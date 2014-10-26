@@ -16,10 +16,11 @@
 -(void)getImageDataWithUrlArray:(NSArray*)array{
     
     taskProgressDic=[[NSMutableDictionary alloc]init];
+    taskWithStringDic=[[NSMutableDictionary alloc]init];
+    
+    dispatch_group_t group = dispatch_group_create();
     
     for (NSString*urlStr in array) {
-        
-        dispatch_group_t group = dispatch_group_create();
         
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
@@ -31,15 +32,17 @@
             NSURLSessionConfiguration*configuration=[NSURLSessionConfiguration defaultSessionConfiguration];
             NSURLSession*session=[NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
             NSURLSessionTask*getImageTask=[session downloadTaskWithRequest:request];
+            
+            [taskWithStringDic setObject:urlStr forKey:[NSString stringWithFormat:@"%@",session]];
+            
             [getImageTask resume];
-
-        
+            
         });
         
-        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-        
-        NSLog(@"Complete add all task");
     }
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    
+    NSLog(@"Complete add all task");
     
 }
 - (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
@@ -54,10 +57,10 @@
 //        });
 //    }
     double progress = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
-    [taskProgressDic setObject:[NSNumber numberWithDouble:progress] forKey:[NSString stringWithFormat:@"%@",downloadTask]];
+    NSString*urlStr=[taskWithStringDic objectForKey:[NSString stringWithFormat:@"%@",session]];
+    [taskProgressDic setObject:[NSNumber numberWithDouble:progress] forKey:urlStr];
     NSLog(@"%@",taskProgressDic);
-    
-    
+
 }
 
 

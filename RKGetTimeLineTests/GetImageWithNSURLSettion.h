@@ -29,6 +29,7 @@
 @interface RKGetImageWithURLSettion : NSObject<NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate>{
     
     NSMutableDictionary*taskProgressDic;
+    NSMutableDictionary*taskWithStringDic;
 }
 
 @property(nonatomic,weak)id<RKGetImageWithURLSettionDelegate>delegate;
