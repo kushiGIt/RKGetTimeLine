@@ -11,6 +11,14 @@
 @implementation RKGetFacebookTimeLine{
     
 }
+-(void)getFacebookTimelineNewlyWithCompletion:(CallbackHandlerForEdit)handler{
+    
+    NSDictionary*permissionDic=@{ACFacebookAppIdKey : @"878372405515997",ACFacebookAudienceKey : ACFacebookAudienceOnlyMe,ACFacebookPermissionsKey : @[@"email",@"read_stream"]};
+    [self getFacebookTimelineFromServer:permissionDic completion:^(NSArray*resultsArray,NSError*getTimelineFromServerError,RKGetFacebookTimeLineError*errorType){
+        
+    }];
+
+}
 -(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer)handler{
     
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];
@@ -67,7 +75,7 @@
                                     NSError*resultsError = [NSError errorWithDomain:@"https://graph.facebook.com/me/home" code:[errorCode integerValue] userInfo:errDetails];
                                     
                                     if (handler) {
-                                        handler(nil,resultsError);
+                                        handler(nil,resultsError,RKGetFacebookTimeLineErrorType_FacebookServerError);
                                     }
                                     
                                 }else{
@@ -79,13 +87,13 @@
                                         NSError*resultsError = [NSError errorWithDomain:@"https://graph.facebook.com/me/home" code:200 userInfo:errDetails];
                                         
                                         if (handler) {
-                                            handler(nil,resultsError);
+                                            handler(nil,resultsError,RKGetFacebookTimeLineErrorType_DataIsNull);
                                         }
                                         
                                     }else{
                                         
                                         if (handler) {
-                                            handler([responseArray valueForKey:@"data"],nil);
+                                            handler([responseArray valueForKey:@"data"],nil,RKGetFacebookTimeLineErrorType_Success);
                                         }
                                         
                                     }
@@ -102,7 +110,7 @@
                             NSError*resultsError = [NSError errorWithDomain:@"https://graph.facebook.com/me/home" code:201 userInfo:errDetails];
                             
                             if (handler) {
-                                handler(nil,resultsError);
+                                handler(nil,resultsError,RKGetFacebookTimeLineErrorType_RequestError);
                             }
                             
                         }
@@ -116,7 +124,7 @@
                 NSError*resultsError = [NSError errorWithDomain:@"https://graph.facebook.com/me/home" code:202 userInfo:errDetails];
                 
                 if (handler) {
-                    handler(nil,resultsError);
+                    handler(nil,resultsError,RKGetFacebookTimeLineErrorType_AccountIsNULL);
                 }
                 
             }
@@ -127,7 +135,7 @@
             NSError*resultsError = [NSError errorWithDomain:@"https://graph.facebook.com/me/home" code:203 userInfo:errDetails];
             
             if (handler) {
-                handler(nil,resultsError);
+                handler(nil,resultsError,RKGetFacebookTimeLineErrorType_NoPermission);
             }
         }
         

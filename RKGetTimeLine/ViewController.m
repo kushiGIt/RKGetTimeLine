@@ -25,7 +25,7 @@
     /*
      test to get facebook timeline
      */
-    RKGetFacebookTimeLine*testFacebook=[[RKGetFacebookTimeLine alloc]init];
+    /*RKGetFacebookTimeLine*testFacebook=[[RKGetFacebookTimeLine alloc]init];
     
     NSDictionary*readOnlyOptions=@{
                                    ACFacebookAppIdKey : @"878372405515997",
@@ -39,12 +39,12 @@
         NSLog(@"%lu",(unsigned long)resultsArray.count);
         NSLog(@"%@",error);
     
-    }];
+    }];*/
     
     /*
      test to get twitter timeline
      */
-    NSUserDefaults*defaults=[NSUserDefaults standardUserDefaults];
+    /*NSUserDefaults*defaults=[NSUserDefaults standardUserDefaults];
     NSDictionary*parametersDic;
     
     if ([defaults stringForKey:@"TWITTER_SINCE_ID"].length==0) {
@@ -66,7 +66,7 @@
         NSLog(@"%lu",(unsigned long)resultsArray.count);
         NSLog(@"%@",error);
     
-    }];
+    }];*/
     
 }
 

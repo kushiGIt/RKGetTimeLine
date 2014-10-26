@@ -11,16 +11,36 @@
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 
-typedef enum{
+typedef NS_ENUM(NSUInteger,RKGetFacebookTimeLineError){
+    /**
+     *  Return when there was no error and app was able to obtain the facebook information correctly.
+     */
     RKGetFacebookTimeLineErrorType_Success=0,
-    RKGetFacebookTimeLineErrorType_AccountError=1,
-    RKGetFacebookTimeLineErrorType_RequestError=2,
-    RKGetFacebookTimeLineErrorType_DataIsNull=3,
-    RKGetFacebookTimeLineErrorType_FacebookServerError=4
-}RKGetFacebookTimeLineError;
+    /**
+     *  Return when app does not have a valid facebook account.
+     */
+    RKGetFacebookTimeLineErrorType_AccountIsNULL=1,
+    /**
+     *  Return when the user did not accept the permission of the account of app.
+     */
+    RKGetFacebookTimeLineErrorType_NoPermission=2,
+    /**
+     *  Return when there was no response from the server.
+     */
+    RKGetFacebookTimeLineErrorType_RequestError=3,
+    /**
+     *  Return when there was no new data on facebook server.
+     */
+    RKGetFacebookTimeLineErrorType_DataIsNull=4,
+    /**
+     *  Return when there was error of facebook server or miss of the developer's code.
+     */
+    RKGetFacebookTimeLineErrorType_FacebookServerError=5
+};
 
 
-typedef void (^CallbackHandlerForServer)(NSArray * resultArray, NSError *error);
+typedef void (^CallbackHandlerForServer)(NSArray *resultArray, NSError *error, RKGetFacebookTimeLineError*errorType);
+typedef void (^CallbackHandlerForEdit)(NSDictionary *resultsDic, NSError *error);
 
 
 
@@ -38,6 +58,5 @@ typedef void (^CallbackHandlerForServer)(NSArray * resultArray, NSError *error);
  *  @param handler       {void}
  */
 -(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer)handler;
-
 
 @end
