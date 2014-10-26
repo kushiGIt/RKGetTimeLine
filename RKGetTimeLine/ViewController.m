@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "RKGetFacebookTimeLine.h"
 #import "RKGetTwitterTimeline.h"
+#import "GetImageWithNSURLSettion.h"
 
 @interface ViewController ()
 
@@ -20,10 +21,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    RKGetFacebookTimeLine*test_facebook=[[RKGetFacebookTimeLine alloc]init];
-    [test_facebook getFacebookTimelineNewlyWithCompletion:^(NSDictionary*dic,NSError*error){
-        
-    }];
+//    RKGetFacebookTimeLine*test_facebook=[[RKGetFacebookTimeLine alloc]init];
+//    [test_facebook getFacebookTimelineNewlyWithCompletion:^(NSDictionary*dic,NSError*error){
+//        
+//    }];
+    
+    RKGetImageWithURLSettion*testSettion=[[RKGetImageWithURLSettion alloc]init];
+    [testSettion getImageDataWithUrlArray:[[NSArray alloc]initWithObjects:@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg", nil]];
     
 }
 

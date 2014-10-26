@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
-
 typedef NS_ENUM(NSUInteger,RKGetFacebookTimeLineError){
     /**
      *  Return when there was no error and app was able to obtain the facebook information correctly.
@@ -48,7 +47,15 @@ typedef void (^CallbackHandlerForEdit_FACEBOOK)(NSDictionary *resultsDic, NSErro
 
 @protocol RKGetFacebookDelegate;
 
-@interface RKGetFacebookTimeLine : NSObject
+@interface RKGetFacebookTimeLine : NSObject{
+    
+}
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+
+@property (nonatomic) NSURLSession *session;
+@property (nonatomic) NSURLSessionDownloadTask *downloadTask;
 
 @property(nonatomic,weak)id<RKGetFacebookDelegate>delegate;
 /**
@@ -59,7 +66,7 @@ typedef void (^CallbackHandlerForEdit_FACEBOOK)(NSDictionary *resultsDic, NSErro
  */
 -(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer_FACEBOOK)handler;
 /**
- *  This methods get post facebook newsfeed from the server and edit data.  When the prosess is finished,run completion block.
+ *  This methods get data that edited the data that was retrieved from the server.When the prosess is finished,run completion block.
  *
  *  @param NSDictionary *resultsDic, NSError *error
  */
@@ -67,7 +74,7 @@ typedef void (^CallbackHandlerForEdit_FACEBOOK)(NSDictionary *resultsDic, NSErro
 /**
  *  Return edited facebook post.  When the prosess is finished,run completion block
  *
- *  @param newsfeed you must get data from server.
+ *  @param newsfeed You must get data from server.
  *
  *  @return LIKE_DATA,PICTURE_DATA,POST_DATE,TEXT,TYPE,USER_ID,USER_NAME in NSDictonary.
  */

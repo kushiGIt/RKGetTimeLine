@@ -22,7 +22,10 @@
             
             case RKGetFacebookTimeLineErrorType_Success:{
                 
-                NSLog(@"array contents = %@",[self editFacebookTimeline:resultsArray]);
+                for (NSDictionary*dic in [self editFacebookTimeline:resultsArray]) {
+                    NSLog(@"%@",[dic objectForKey:@"PICTURE_DATA"]);
+                    NSLog(@"%@",[dic objectForKey:@"USER_NAME"]);
+                }
                 
                 break;
                 
@@ -127,7 +130,7 @@
                 NSString *accessToken = [facebookCredential oauthToken];
                 
                 NSURL*url=[NSURL URLWithString:@"https://graph.facebook.com/me/home"];
-                NSDictionary*parametersDic=[[NSDictionary alloc]initWithObjectsAndKeys:accessToken,@"access_token",@500,@"limit", nil];
+                NSDictionary*parametersDic=[[NSDictionary alloc]initWithObjectsAndKeys:accessToken,@"access_token",@1000,@"limit", nil];
                 
                 SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:url parameters:parametersDic];
                 request.account = facebookAccount;
@@ -237,5 +240,4 @@
         
     }];
 }
-
 @end
