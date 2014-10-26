@@ -54,11 +54,24 @@ typedef void (^CallbackHandlerForEdit_FACEBOOK)(NSDictionary *resultsDic, NSErro
 /**
  *  This method get a facebook post from the server.  When the prosess is finished,run completion block.
  *
- *  @param permissionDic {NSDictionary}
- *  @param handler       {void}
+ *  @param permissionDic You must set facebook permission.
+ *  @param handler       NSArray *resultArray, NSError *error, RKGetFacebookTimeLineError errorType
  */
 -(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer_FACEBOOK)handler;
-
+/**
+ *  This methods get post facebook newsfeed from the server and edit data.  When the prosess is finished,run completion block.
+ *
+ *  @param NSDictionary *resultsDic, NSError *error
+ */
 -(void)getFacebookTimelineNewlyWithCompletion:(CallbackHandlerForEdit_FACEBOOK)handler;
+/**
+ *  Return edited facebook post.  When the prosess is finished,run completion block
+ *
+ *  @param newsfeed you must get data from server.
+ *
+ *  @return LIKE_DATA,PICTURE_DATA,POST_DATE,TEXT,TYPE,USER_ID,USER_NAME in NSDictonary.
+ */
+
+-(NSArray*)editFacebookTimeline:(NSArray*)newsfeed;
 
 @end
