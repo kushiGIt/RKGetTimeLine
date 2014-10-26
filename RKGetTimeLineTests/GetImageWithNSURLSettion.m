@@ -11,13 +11,11 @@
 @implementation RKGetImageWithURLSettion
 -(id)init{
     NSLog(@"init");
-    [self taskProgressDic];
     return self;
 }
--(void)objectInit{
-    self.taskProgressDic=[[NSMutableDictionary alloc]init];
-}
 -(void)getImageDataWithUrlArray:(NSArray*)array{
+    
+    taskProgressDic=[[NSMutableDictionary alloc]init];
     
     for (NSString*urlStr in array) {
         
@@ -56,10 +54,9 @@
 //        });
 //    }
     double progress = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
-    [self.taskProgressDic setObject:[NSNumber numberWithDouble:progress] forKey:[NSString stringWithFormat:@"%@",session]];
-    NSLog(@"%@",[NSString stringWithFormat:@"%@",session]);
-    NSLog(@"%@",self.taskProgressDic);
-//    NSLog(@"progress...%f percent",progress*100);
+    [taskProgressDic setObject:[NSNumber numberWithDouble:progress] forKey:[NSString stringWithFormat:@"%@",downloadTask]];
+    NSLog(@"%@",taskProgressDic);
+    
     
 }
 
