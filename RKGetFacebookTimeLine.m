@@ -11,15 +11,15 @@
 @implementation RKGetFacebookTimeLine{
     
 }
--(void)getFacebookTimelineNewlyWithCompletion:(CallbackHandlerForEdit)handler{
+-(void)getFacebookTimelineNewlyWithCompletion:(CallbackHandlerForEdit_FACEBOOK)handler{
     
     NSDictionary*permissionDic=@{ACFacebookAppIdKey : @"878372405515997",ACFacebookAudienceKey : ACFacebookAudienceOnlyMe,ACFacebookPermissionsKey : @[@"email",@"read_stream"]};
-    [self getFacebookTimelineFromServer:permissionDic completion:^(NSArray*resultsArray,NSError*getTimelineFromServerError,RKGetFacebookTimeLineError*errorType){
+    [self getFacebookTimelineFromServer:permissionDic completion:^(NSArray*resultsArray,NSError*getTimelineFromServerError,RKGetFacebookTimeLineError errorType){
         
     }];
 
 }
--(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer)handler{
+-(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer_FACEBOOK)handler{
     
     ACAccountStore *accountStore = [[ACAccountStore alloc] init];
     ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];

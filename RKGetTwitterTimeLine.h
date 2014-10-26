@@ -12,7 +12,7 @@
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 
-typedef void (^CallbackHandlerForServer)(NSArray * resultArray, NSError *error);
+typedef void (^CallbackHandlerForServer_TWITTER)(NSArray * resultArray, NSError *error);
 
 typedef enum{
     RKGetTwiiterTimeLineErrorType_Success=0,
@@ -36,6 +36,6 @@ typedef enum{
  *  @param parametersDic {NSDictionary}
  *  @param handler       {void}
  */
--(void)getTwitterTimelineFromServer:(NSDictionary*)parametersDic completion:(CallbackHandlerForServer)handler;
+-(void)getTwitterTimelineFromServer:(NSDictionary*)parametersDic completion:(CallbackHandlerForServer_TWITTER)handler;
 
 @end

@@ -39,8 +39,8 @@ typedef NS_ENUM(NSUInteger,RKGetFacebookTimeLineError){
 };
 
 
-typedef void (^CallbackHandlerForServer)(NSArray *resultArray, NSError *error, RKGetFacebookTimeLineError*errorType);
-typedef void (^CallbackHandlerForEdit)(NSDictionary *resultsDic, NSError *error);
+typedef void (^CallbackHandlerForServer_FACEBOOK)(NSArray *resultArray, NSError *error, RKGetFacebookTimeLineError errorType);
+typedef void (^CallbackHandlerForEdit_FACEBOOK)(NSDictionary *resultsDic, NSError *error);
 
 
 
@@ -57,6 +57,6 @@ typedef void (^CallbackHandlerForEdit)(NSDictionary *resultsDic, NSError *error)
  *  @param permissionDic {NSDictionary}
  *  @param handler       {void}
  */
--(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer)handler;
+-(void)getFacebookTimelineFromServer:(NSDictionary*)permissionDic completion:(CallbackHandlerForServer_FACEBOOK)handler;
 
 @end
