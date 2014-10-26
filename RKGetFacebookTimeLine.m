@@ -13,6 +13,7 @@
 }
 -(void)getFacebookTimelineNewlyWithCompletion:(CallbackHandlerForEdit_FACEBOOK)handler{
     
+    
     NSDictionary*permissionDic=@{ACFacebookAppIdKey : @"878372405515997",ACFacebookAudienceKey : ACFacebookAudienceOnlyMe,ACFacebookPermissionsKey : @[@"email",@"read_stream"]};
     [self getFacebookTimelineFromServer:permissionDic completion:^(NSArray*resultsArray,NSError*getTimelineFromServerError,RKGetFacebookTimeLineError errorType){
         
