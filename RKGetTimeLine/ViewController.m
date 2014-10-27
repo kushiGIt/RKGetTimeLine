@@ -7,9 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "RKGetFacebookTimeLine.h"
-#import "RKGetTwitterTimeline.h"
-#import "GetImageWithNSURLSettion.h"
 
 @interface ViewController ()
 
@@ -26,14 +23,32 @@
 //        
 //    }];
     
-    RKGetImageWithURLSettion*testSettion=[[RKGetImageWithURLSettion alloc]init];
-    [testSettion getImageDataWithUrlArray:[[NSArray alloc]initWithObjects:@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"https://scontent-b.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/1653489_355346127959339_1933610677989687628_n.jpg?oh=c8240cf4b1db62b1646cb95bdd3e0bdc&oe=54ABE206",@"https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/10690037_355346094626009_5405824933846730956_n.jpg?oh=7667552b1ecfc4ca35a4d2d848c96abd&oe=54EEE3A7&__gda__=1420538317_bbc24ffae022b4a44d27ae3e0af699b1", nil]];
+    RKGetDataWithURLSettion*testSettion=[[RKGetDataWithURLSettion alloc]init];
+    testSettion.delegate=self;
     
+    [testSettion getDataWithUrlArray:[[NSArray alloc]initWithObjects:@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"https://scontent-b.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/1653489_355346127959339_1933610677989687628_n.jpg?oh=c8240cf4b1db62b1646cb95bdd3e0bdc&oe=54ABE206",@"https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/10690037_355346094626009_5405824933846730956_n.jpg?oh=7667552b1ecfc4ca35a4d2d848c96abd&oe=54EEE3A7&__gda__=1420538317_bbc24ffae022b4a44d27ae3e0af699b1", nil]];
+    
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)getProgressInDictionary:(NSDictionary *)progressValueInDic{
+    
+    NSLog(@"=====PROGRESS=====");
+    for (NSNumber*num in [progressValueInDic allValues]) {
+        NSLog(@"%@",num);
+    }
+    
+}
+-(void)completeGetData:(NSData *)data withErrorType:(RKGetImageDataErrorType)errorType andCompeteReciveUrl:(NSString *)urlStr{
+    
+    NSLog(@"=======================COMPLETE========================");
+    NSLog(@"errorType=%ld",errorType);
+    NSLog(@"%@",urlStr);
+    NSLog(@"complete recive data %ld byte",data.length);
+    
+}
 @end

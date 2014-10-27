@@ -8,15 +8,11 @@
 
 #import "GetImageWithNSURLSettion.h"
 
-@implementation RKGetImageWithURLSettion
--(id)init{
-    NSLog(@"init");
-    return self;
-}
--(void)getImageDataWithUrlArray:(NSArray*)array{
+@implementation RKGetDataWithURLSettion
+
+-(void)getDataWithUrlArray:(NSArray*)array{
     
     taskProgressDic=[[NSMutableDictionary alloc]init];
-    taskWithStringDic=[[NSMutableDictionary alloc]init];
     
     dispatch_group_t group = dispatch_group_create();
     
@@ -33,8 +29,6 @@
             NSURLSession*session=[NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
             NSURLSessionTask*getImageTask=[session downloadTaskWithRequest:request];
             
-            [taskWithStringDic setObject:urlStr forKey:[NSString stringWithFormat:@"%@",session]];
-            
             [getImageTask resume];
             
         });
@@ -45,81 +39,62 @@
     NSLog(@"Complete add all task");
     
 }
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
-{
-//    if (downloadTask == self.downloadTask)
-//    {
-//        //NSLog(@"totalBytesWirt:%lld    totalBytesExpected:%lld",totalBytesWritten, totalBytesExpectedToWrite);
-//        double progress = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
-//        NSLog(@"progress...%f percent",progress*100);
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            _progressView.progress = progress;
-//        });
-//    }
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
+    
     double progress = (double)totalBytesWritten / (double)totalBytesExpectedToWrite;
-    NSString*urlStr=[taskWithStringDic objectForKey:[NSString stringWithFormat:@"%@",session]];
-    [taskProgressDic setObject:[NSNumber numberWithDouble:progress] forKey:urlStr];
-    NSLog(@"%@",taskProgressDic);
+    
+    [taskProgressDic setObject:[NSNumber numberWithDouble:progress] forKey:[NSString stringWithFormat:@"%@",[[downloadTask originalRequest]URL]]];
+    
+    if ([self.delegate respondsToSelector:@selector(getProgressInDictionary:)]) {
+        
+        [self.delegate getProgressInDictionary:taskProgressDic];
+    
+    }
 
 }
+-(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location{
+    
+    NSData* data = [NSData dataWithContentsOfURL:location];
+    
+    RKGetImageDataErrorType errorType;
+    
+    NSString*completeUrlStr=[NSString stringWithFormat:@"%@",[[downloadTask originalRequest]URL]];
+    
+    if (data.length == 0) {
+        
+        errorType=RKGetImageDataErrorType_ReciveDataIsNull;
+    
+    }else{
+        
+        errorType=RKGetImageDataErrorType_Success;
+    
+    }
+    
+    if ([self.delegate respondsToSelector:@selector(completeGetData:withErrorType:andCompeteReciveUrl:)]) {
+        
+        [self.delegate completeGetData:data withErrorType:errorType andCompeteReciveUrl:completeUrlStr];
+    
+    }
+    
+}
 
-
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)downloadURL
+-(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    
-//    NSArray *URLs = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-//    NSURL *documentsDirectory = [URLs objectAtIndex:0];
-//    
-//    NSURL *originalURL = [[downloadTask originalRequest] URL];
-//    NSURL *destinationURL = [documentsDirectory URLByAppendingPathComponent:[originalURL lastPathComponent]];
-//    [fileManager removeItemAtURL:destinationURL error:NULL];
-//    BOOL success = [fileManager copyItemAtURL:downloadURL toURL:destinationURL error:NULL];
-//    
-//    if (success)
+//    if (error == nil)
 //    {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            UIImage *image = [UIImage imageWithContentsOfFile:[destinationURL path]];
-//            _imageView.image = image;
-//            _imageView.hidden = NO;
-//            _progressView.hidden = YES;
-//        });
+//        NSLog(@"Task: %@ completed successfully", task);
 //    }
+//    else
+//    {
+//        NSLog(@"Task: %@ completed with error: %@", task, [error localizedDescription]);
+//    }
+//    
+//    double progress = (double)task.countOfBytesReceived / (double)task.countOfBytesExpectedToReceive;
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        self.progressView.progress = progress;
+//    });
+//    
+//    _downloadTask = nil;
 }
-
-
-/*- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
-{
-    if (error == nil)
-    {
-        NSLog(@"Task: %@ completed successfully", task);
-    }
-    else
-    {
-        NSLog(@"Task: %@ completed with error: %@", task, [error localizedDescription]);
-    }
-    
-    double progress = (double)task.countOfBytesReceived / (double)task.countOfBytesExpectedToReceive;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.progressView.progress = progress;
-    });
-    
-    _downloadTask = nil;
-}
-
-- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session
-{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (appDelegate.backgroundSessionCompletionHandler)
-    {
-        void (^completionHandler)() = appDelegate.backgroundSessionCompletionHandler;
-        appDelegate.backgroundSessionCompletionHandler = nil;
-        completionHandler();
-    }
-    
-    NSLog(@"All tasks are finished");
-}
--(void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes
-{}*/
 
 @end

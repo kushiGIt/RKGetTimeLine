@@ -10,32 +10,47 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-//@interface GetImageWithNSURLSettion : UIViewController<NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate>{
-//    
-//}
-//@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-//property (weak, nonatomic) IBOutlet UIProgressView *progressView;@
-//
-//@property (nonatomic) NSURLSession *session;
-//@property (nonatomic) NSURLSessionDownloadTask *downloadTask;
-//
-//
-//@end
+typedef NS_ENUM(NSInteger,RKGetImageDataErrorType){
+    RKGetImageDataErrorType_ReciveDataIsNull, 
+    RKGetImageDataErrorType_Success
+};
 
-@class RKGetImageWithURLSettion;
+@class RKGetDataWithURLSettion;
 
-@protocol  RKGetImageWithURLSettionDelegate;
+@protocol  RKGetDataWithURLSettionDelegate;
 
-@interface RKGetImageWithURLSettion : NSObject<NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate>{
+@interface RKGetDataWithURLSettion : NSObject<NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate>{
     
     NSMutableDictionary*taskProgressDic;
-    NSMutableDictionary*taskWithStringDic;
 }
 
-@property(nonatomic,weak)id<RKGetImageWithURLSettionDelegate>delegate;
+@property id<RKGetDataWithURLSettionDelegate>delegate;
+/**
+ *  This method get data from url. You must not set NSURL. Only NSString!!
+ *
+ *  @param array only String url in array.
+ */
+-(void)getDataWithUrlArray:(NSArray*)array;
 
--(void)getImageDataWithUrlArray:(NSArray*)array;
--(id)init;
+@end
+
+
+@protocol RKGetDataWithURLSettionDelegate <NSObject>
+
+@optional
+/**
+ *  This methods use for cheak progress(optinal)
+ *
+ *  @param progressValueInDic NSNumber(progress value) in NSDictionary
+ */
+-(void)getProgressInDictionary:(NSDictionary*)progressValueInDic;
+/**
+ *  This method call when complete recive data.
+ *
+ *  @param data      recived data
+ *  @param errorType RKGetImageDataErrorType
+ */
+-(void)completeGetData:(NSData*)data withErrorType:(RKGetImageDataErrorType)errorType andCompeteReciveUrl:(NSString*)urlStr;
 @end
 
 
