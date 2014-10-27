@@ -43,12 +43,20 @@
     }
     
 }
--(void)completeGetData:(NSData *)data withErrorType:(RKGetImageDataErrorType)errorType andCompeteReciveUrl:(NSString *)urlStr{
+-(void)completeGetData:(NSData *)data withErrorType:(RKGetDataErrorType)errorType andCompeteReciveUrl:(NSString *)urlStr{
     
     NSLog(@"=======================COMPLETE========================");
     NSLog(@"errorType=%ld",errorType);
     NSLog(@"%@",urlStr);
     NSLog(@"complete recive data %ld byte",data.length);
     
+}
+-(void)didComplteTask:(RKTaskCompletedCondition)condition taskURL:(NSString *)urlStr withError:(NSError *)error{
+    
+    NSLog(@"=======================Finish_task========================");
+    NSLog(@"%ld",condition);
+    NSLog(@"%@",urlStr);
+    NSLog(@"%@",error);
+
 }
 @end
