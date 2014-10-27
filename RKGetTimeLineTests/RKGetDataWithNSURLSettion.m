@@ -1,12 +1,12 @@
 //
-//  GetImageWithNSURLSettion.m
+//  RKGetDataWithNSURLSettion.m
 //  RKGetTimeLine
 //
 //  Created by RyousukeKushihata on 2014/10/26.
 //  Copyright (c) 2014年 RyousukeKushihata. All rights reserved.
 //
 
-#import "GetImageWithNSURLSettion.h"
+#import "RKGetDataWithNSURLSettion.h"
 
 @implementation RKGetDataWithURLSettion
 
@@ -56,17 +56,17 @@
     
     NSData* data = [NSData dataWithContentsOfURL:location];
     
-    RKGetImageDataErrorType errorType;
+    RKGetDataErrorType errorType;
     
     NSString*completeUrlStr=[NSString stringWithFormat:@"%@",[[downloadTask originalRequest]URL]];
     
     if (data.length == 0) {
         
-        errorType=RKGetImageDataErrorType_ReciveDataIsNull;
+        errorType=RKGetDataErrorType_ReciveDataIsNull;
     
     }else{
         
-        errorType=RKGetImageDataErrorType_Success;
+        errorType=RKGetDataErrorType_Success;
     
     }
     
@@ -80,21 +80,27 @@
 
 -(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
-//    if (error == nil)
-//    {
-//        NSLog(@"Task: %@ completed successfully", task);
-//    }
-//    else
-//    {
-//        NSLog(@"Task: %@ completed with error: %@", task, [error localizedDescription]);
-//    }
-//    
-//    double progress = (double)task.countOfBytesReceived / (double)task.countOfBytesExpectedToReceive;
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        self.progressView.progress = progress;
-//    });
-//    
-//    _downloadTask = nil;
+    RKTaskCompletedCondition condition;
+    
+    if (error == nil){
+        
+        condition=RKTaskCompletedConditionSuccessfully;
+    
+    }
+    else{
+        
+        condition=RKTaskCompletedConditionFailure;
+    
+    }
+    
+     NSString*urlStr=[NSString stringWithFormat:@"%@",[[task originalRequest]URL]];
+    
+    if ([self.delegate respondsToSelector:@selector(didComplteTask:taskURL:withError:)]) {
+        
+        [self.delegate didComplteTask:condition taskURL:urlStr withError:error];
+    
+    }
+
 }
 
 @end

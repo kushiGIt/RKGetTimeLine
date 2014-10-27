@@ -1,5 +1,5 @@
 //
-//  GetImageWithNSURLSettion.h
+//  RKGetDataWithNSURLSettion.h
 //  RKGetTimeLine
 //
 //  Created by RyousukeKushihata on 2014/10/26.
@@ -10,9 +10,17 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
-typedef NS_ENUM(NSInteger,RKGetImageDataErrorType){
-    RKGetImageDataErrorType_ReciveDataIsNull, 
-    RKGetImageDataErrorType_Success
+typedef NS_ENUM(NSInteger,RKGetDataErrorType){
+    
+    RKGetDataErrorType_Success,
+    RKGetDataErrorType_ReciveDataIsNull
+
+};
+typedef NS_ENUM(NSInteger,RKTaskCompletedCondition){
+    
+    RKTaskCompletedConditionSuccessfully,
+    RKTaskCompletedConditionFailure
+    
 };
 
 @class RKGetDataWithURLSettion;
@@ -48,9 +56,17 @@ typedef NS_ENUM(NSInteger,RKGetImageDataErrorType){
  *  This method call when complete recive data.
  *
  *  @param data      recived data
- *  @param errorType RKGetImageDataErrorType
+ *  @param errorType RKGetDataErrorType
  */
--(void)completeGetData:(NSData*)data withErrorType:(RKGetImageDataErrorType)errorType andCompeteReciveUrl:(NSString*)urlStr;
+-(void)completeGetData:(NSData*)data withErrorType:(RKGetDataErrorType)errorType andCompeteReciveUrl:(NSString*)urlStr;
+/**
+ *  This method call when finish task. Return TaskCondition,URL and error.
+ *
+ *  @param condition RKTaskCompletedCondition
+ *  @param urlStr    finished task url
+ *  @param error     task error
+ */
+-(void)didComplteTask:(RKTaskCompletedCondition)condition taskURL:(NSString*)urlStr withError:(NSError*)error;
 @end
 
 
