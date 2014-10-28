@@ -13,10 +13,15 @@
 -(void)getDataWithUrlArray:(NSArray*)array{
     
     taskProgressDic=[[NSMutableDictionary alloc]init];
+    taskCount=0;
     
     dispatch_group_t group = dispatch_group_create();
     
+    int i=0;
+    
     for (NSString*urlStr in array) {
+        
+        i++;
         
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         
@@ -34,8 +39,10 @@
         });
         
     }
+    
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
     
+    taskCount=[NSNumber numberWithInt:i];
     NSLog(@"Complete add all task");
     
 }
@@ -45,9 +52,9 @@
     
     [taskProgressDic setObject:[NSNumber numberWithDouble:progress] forKey:[NSString stringWithFormat:@"%@",[[downloadTask originalRequest]URL]]];
     
-    if ([self.delegate respondsToSelector:@selector(getProgressInDictionary:)]) {
+    if ([self.delegate respondsToSelector:@selector(getProgressInDictionary:withAllTaskCount:)]) {
         
-        [self.delegate getProgressInDictionary:taskProgressDic];
+        [self.delegate getProgressInDictionary:taskProgressDic withAllTaskCount:taskCount];
     
     }
 
@@ -70,9 +77,10 @@
     
     }
     
-    if ([self.delegate respondsToSelector:@selector(completeGetData:withErrorType:andCompeteReciveUrl:)]) {
+    if ([self.delegate respondsToSelector:@selector(completeGetData:withErrorType:CompeteReciveUrl:AllTaskCount:)]) {
         
-        [self.delegate completeGetData:data withErrorType:errorType andCompeteReciveUrl:completeUrlStr];
+#warning aaa
+        [self.delegate completeGetData:data withErrorType:errorType CompeteReciveUrl:completeUrlStr AllTaskCount:taskCount];
     
     }
     

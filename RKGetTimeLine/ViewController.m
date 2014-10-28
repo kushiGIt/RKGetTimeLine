@@ -35,28 +35,34 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)getProgressInDictionary:(NSDictionary *)progressValueInDic{
+-(void)getProgressInDictionary:(NSDictionary *)progressValueInDic withAllTaskCount:(NSNumber *)taskCount{
     
-    NSLog(@"=====PROGRESS=====");
+    float progress = 0.0;
+    
     for (NSNumber*num in [progressValueInDic allValues]) {
-        NSLog(@"%@",num);
+    
+        progress=progress+[num floatValue];
+        
     }
     
+    NSLog(@"All task is progressing.....%f persent",progress/[taskCount floatValue]*100);
+
 }
--(void)completeGetData:(NSData *)data withErrorType:(RKGetDataErrorType)errorType andCompeteReciveUrl:(NSString *)urlStr{
+-(void)completeGetData:(NSData *)data withErrorType:(RKGetDataErrorType)errorType CompeteReciveUrl:(NSString *)urlStr AllTaskCount:(NSNumber *)taskCount{
     
     NSLog(@"=======================COMPLETE========================");
     NSLog(@"errorType=%ld",errorType);
     NSLog(@"%@",urlStr);
+    NSLog(@"all task count=%@",taskCount);
     NSLog(@"complete recive data %ld byte",data.length);
     
 }
 -(void)didComplteTask:(RKTaskCompletedCondition)condition taskURL:(NSString *)urlStr withError:(NSError *)error{
     
-    NSLog(@"=======================Finish_task========================");
+    NSLog(@"=======================Finish_.htask========================");
     NSLog(@"%ld",condition);
     NSLog(@"%@",urlStr);
     NSLog(@"%@",error);
-
+    
 }
 @end

@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger,RKTaskCompletedCondition){
 @interface RKGetDataWithURLSettion : NSObject<NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate>{
     
     NSMutableDictionary*taskProgressDic;
+    NSNumber*taskCount;
 }
 
 @property id<RKGetDataWithURLSettionDelegate>delegate;
@@ -51,14 +52,14 @@ typedef NS_ENUM(NSInteger,RKTaskCompletedCondition){
  *
  *  @param progressValueInDic NSNumber(progress value) in NSDictionary
  */
--(void)getProgressInDictionary:(NSDictionary*)progressValueInDic;
+-(void)getProgressInDictionary:(NSDictionary*)progressValueInDic withAllTaskCount:(NSNumber*)taskCount;
 /**
  *  This method call when complete recive data.
  *
  *  @param data      recived data
  *  @param errorType RKGetDataErrorType
  */
--(void)completeGetData:(NSData*)data withErrorType:(RKGetDataErrorType)errorType andCompeteReciveUrl:(NSString*)urlStr;
+-(void)completeGetData:(NSData*)data withErrorType:(RKGetDataErrorType)errorType CompeteReciveUrl:(NSString*)urlStr AllTaskCount:(NSNumber*)taskCount;
 /**
  *  This method call when finish task. Return TaskCondition,URL and error.
  *
