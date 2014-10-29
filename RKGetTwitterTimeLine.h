@@ -21,7 +21,7 @@ typedef enum{
 }RKGetTwitterTimeLineError;
 
 typedef void (^CallbackHandlerForServer_TWITTER)(NSArray * resultArray, NSError *error, RKGetTwitterTimeLineError errorType);
-typedef void (^CallbackHandlerForEdit_TWITTER)(NSDictionary *resultsDic, NSError *error);
+typedef void (^CallbackHandlerForEdit_TWITTER)(NSArray*array, NSError *error);
 
 
 @class RKGetTwitterTimeline;

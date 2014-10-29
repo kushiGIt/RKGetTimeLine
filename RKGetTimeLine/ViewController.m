@@ -17,25 +17,74 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    
+    __block int isProgress=0;
+    __block NSMutableArray*urlStrArray=[[NSMutableArray alloc]init];
     
     RKGetFacebookTimeLine*test_facebook=[[RKGetFacebookTimeLine alloc]init];
-    [test_facebook getFacebookTimelineNewlyWithCompletion:^(NSDictionary*dic,NSError*error){
-        NSLog(@"%@",dic);
-        NSLog(@"%@",error);
+    [test_facebook getFacebookTimelineNewlyWithCompletion:^(NSArray*array,NSError*error){
+        
+        dispatch_group_t group_facebook = dispatch_group_create();
+        
+        for (NSDictionary*dataDic in array) {
+            
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            
+            dispatch_group_async(group_facebook, queue, ^{
+                
+                NSString*urlStr=[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture",[dataDic objectForKey:@"USER_ID"]];
+                [urlStrArray addObject:urlStr];
+                                 
+            });
+            
+        }
+        
+        dispatch_group_wait(group_facebook, DISPATCH_TIME_FOREVER);
+        
+        NSLog(@"facebook task...done");
+        
+        isProgress++;
     }];
     
     RKGetTwitterTimeline*test_twitter=[[RKGetTwitterTimeline alloc]init];
-    [test_twitter getFacebookTimelineNewlyWithCompletion:^(NSDictionary*dic,NSError*error){
-        NSLog(@"%@",dic);
-        NSLog(@"%@",error);
+    [test_twitter getFacebookTimelineNewlyWithCompletion:^(NSArray*array,NSError*error){
+        
+        dispatch_group_t group_twitter = dispatch_group_create();
+        
+        for (NSDictionary*dataDic in array) {
+            
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+            
+            dispatch_group_async(group_twitter, queue, ^{
+                
+                NSString*urlStr=[NSString stringWithFormat:@"%@",[dataDic objectForKey:@"USER_ICON"]];
+                [urlStrArray addObject:urlStr];
+                
+            });
+            
+        }
+        
+        dispatch_group_wait(group_twitter, DISPATCH_TIME_FOREVER);
+        
+        NSLog(@"twitter task...done");
+        
+        isProgress++;
     }];
     
-//    RKGetDataWithURLSettion*testSettion=[[RKGetDataWithURLSettion alloc]init];
-//    testSettion.delegate=self;
-//    
-//    [testSettion getDataWithUrlArray:[[NSArray alloc]initWithObjects:@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"https://scontent-b.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/1653489_355346127959339_1933610677989687628_n.jpg?oh=c8240cf4b1db62b1646cb95bdd3e0bdc&oe=54ABE206",@"https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/10690037_355346094626009_5405824933846730956_n.jpg?oh=7667552b1ecfc4ca35a4d2d848c96abd&oe=54EEE3A7&__gda__=1420538317_bbc24ffae022b4a44d27ae3e0af699b1", nil]];
     
-
+    while(isProgress<2){
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
+    }
+    
+    NSLog(@"Process for receiving the data has been completed all.");
+    
+    RKGetDataWithURLSettion*testSettion=[[RKGetDataWithURLSettion alloc]init];
+    testSettion.delegate=self;
+    
+    [testSettion getDataWithUrlArray:[[NSArray alloc]initWithArray:urlStrArray]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,7 +116,7 @@
 }
 -(void)didComplteTask:(RKTaskCompletedCondition)condition taskURL:(NSString *)urlStr withError:(NSError *)error{
     
-    NSLog(@"=======================Finish_.htask========================");
+    NSLog(@"=======================Finish_task========================");
     NSLog(@"%ld",condition);
     NSLog(@"%@",urlStr);
     NSLog(@"%@",error);

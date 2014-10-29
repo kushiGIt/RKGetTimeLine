@@ -22,17 +22,18 @@
             
             case RKGetFacebookTimeLineErrorType_Success:{
                 
-                for (NSDictionary*dic in [self editFacebookTimeline:resultsArray]) {
-                    NSLog(@"%@",[dic objectForKey:@"PICTURE_DATA"]);
-                    NSLog(@"%@",[dic objectForKey:@"USER_NAME"]);
+                if (handler) {
+                    handler([self editFacebookTimeline:resultsArray],getTimelineFromServerError);
                 }
                 
                 break;
                 
             }default:{
                 
-                NSLog(@"%@",getTimelineFromServerError);
-                NSLog(@"%ld",errorType);
+                if (handler) {
+                    handler([[NSArray alloc]init],getTimelineFromServerError);
+                }
+                
                 break;
                 
             }
@@ -99,7 +100,6 @@
             [dic setObject:@"FACEBOOK" forKey:@"TYPE"];
             
             [array addObject:dic];
-            
             
         });
         
