@@ -12,8 +12,6 @@
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 
-typedef void (^CallbackHandlerForServer_TWITTER)(NSArray * resultArray, NSError *error);
-
 typedef enum{
     RKGetTwiiterTimeLineErrorType_Success=0,
     RKGetTwiiterTimeLineErrorType_AccountError=1,
@@ -21,6 +19,9 @@ typedef enum{
     RKGetTwiiterTimeLineErrorType_DataIsNull=3,
     RKGetTwiiterTimeLineErrorType_TwitterServerError=4
 }RKGetTwitterTimeLineError;
+
+typedef void (^CallbackHandlerForServer_TWITTER)(NSArray * resultArray, NSError *error, RKGetTwitterTimeLineError errorType);
+typedef void (^CallbackHandlerForEdit_TWITTER)(NSDictionary *resultsDic, NSError *error);
 
 
 @class RKGetTwitterTimeline;
@@ -37,5 +38,7 @@ typedef enum{
  *  @param handler       {void}
  */
 -(void)getTwitterTimelineFromServer:(NSDictionary*)parametersDic completion:(CallbackHandlerForServer_TWITTER)handler;
+-(void)getFacebookTimelineNewlyWithCompletion:(CallbackHandlerForEdit_TWITTER)handler;
+-(NSArray*)editTwitterTimeline:(NSArray*)responseArray;
 
 @end

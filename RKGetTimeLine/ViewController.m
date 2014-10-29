@@ -18,15 +18,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-//    RKGetFacebookTimeLine*test_facebook=[[RKGetFacebookTimeLine alloc]init];
-//    [test_facebook getFacebookTimelineNewlyWithCompletion:^(NSDictionary*dic,NSError*error){
-//        
-//    }];
+    RKGetFacebookTimeLine*test_facebook=[[RKGetFacebookTimeLine alloc]init];
+    [test_facebook getFacebookTimelineNewlyWithCompletion:^(NSDictionary*dic,NSError*error){
+        NSLog(@"%@",dic);
+        NSLog(@"%@",error);
+    }];
     
-    RKGetDataWithURLSettion*testSettion=[[RKGetDataWithURLSettion alloc]init];
-    testSettion.delegate=self;
+    RKGetTwitterTimeline*test_twitter=[[RKGetTwitterTimeline alloc]init];
+    [test_twitter getFacebookTimelineNewlyWithCompletion:^(NSDictionary*dic,NSError*error){
+        NSLog(@"%@",dic);
+        NSLog(@"%@",error);
+    }];
     
-    [testSettion getDataWithUrlArray:[[NSArray alloc]initWithObjects:@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"https://scontent-b.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/1653489_355346127959339_1933610677989687628_n.jpg?oh=c8240cf4b1db62b1646cb95bdd3e0bdc&oe=54ABE206",@"https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/10690037_355346094626009_5405824933846730956_n.jpg?oh=7667552b1ecfc4ca35a4d2d848c96abd&oe=54EEE3A7&__gda__=1420538317_bbc24ffae022b4a44d27ae3e0af699b1", nil]];
+//    RKGetDataWithURLSettion*testSettion=[[RKGetDataWithURLSettion alloc]init];
+//    testSettion.delegate=self;
+//    
+//    [testSettion getDataWithUrlArray:[[NSArray alloc]initWithObjects:@"http://aqueous-beyond-6099.herokuapp.com/images/maverick-osx.jpg",@"https://scontent-b.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/1653489_355346127959339_1933610677989687628_n.jpg?oh=c8240cf4b1db62b1646cb95bdd3e0bdc&oe=54ABE206",@"https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-xpf1/v/t1.0-9/10690037_355346094626009_5405824933846730956_n.jpg?oh=7667552b1ecfc4ca35a4d2d848c96abd&oe=54EEE3A7&__gda__=1420538317_bbc24ffae022b4a44d27ae3e0af699b1", nil]];
     
 
 }
@@ -35,6 +42,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - RKGetDataWithNSURLSession Delegate
 -(void)getProgressInDictionary:(NSDictionary *)progressValueInDic withAllTaskCount:(NSNumber *)taskCount{
     
     float progress = 0.0;

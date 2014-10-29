@@ -79,7 +79,6 @@
     
     if ([self.delegate respondsToSelector:@selector(completeGetData:withErrorType:CompeteReciveUrl:AllTaskCount:)]) {
         
-#warning aaa
         [self.delegate completeGetData:data withErrorType:errorType CompeteReciveUrl:completeUrlStr AllTaskCount:taskCount];
     
     }

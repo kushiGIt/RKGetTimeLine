@@ -54,8 +54,6 @@
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_group_async(group, queue, ^{
             
-            NSLog(@"task number:%d",i);
-            
             NSMutableDictionary*dic=[[NSMutableDictionary alloc]init];
             
             //user name
