@@ -132,7 +132,7 @@
 }
 -(void)completeGetData:(NSData *)data withErrorType:(RKGetDataErrorType)errorType CompeteReciveUrl:(NSString *)urlStr AllTaskCount:(NSNumber *)taskCount{
     
-//    NSLog(@"=======================COMPLETE========================");
+    NSLog(@"=======================COMPLETE========================");
 //    NSLog(@"errorType=%ld",errorType);
 //    NSLog(@"%@",urlStr);
 //    NSLog(@"all task count=%@",taskCount);
