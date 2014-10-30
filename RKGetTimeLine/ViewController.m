@@ -21,6 +21,8 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
     
+    NSLock*threadLock=[[NSLock alloc]init];
+    
     __block int isProgress=0;
     __block NSMutableArray*urlStrArray=[[NSMutableArray alloc]init];
     
@@ -35,8 +37,20 @@
             
             dispatch_group_async(group_facebook, queue, ^{
                 
-                NSString*urlStr=[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture",[dataDic objectForKey:@"USER_ID"]];
-                [urlStrArray addObject:urlStr];
+                [threadLock lock];
+                
+                @try {
+                    
+                    NSString*urlStr=[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture",[dataDic objectForKey:@"USER_ID"]];
+                    [urlStrArray addObject:urlStr];
+                
+                }
+                
+                @finally {
+                    
+                    [threadLock unlock];
+                
+                }
                                  
             });
             
@@ -60,8 +74,19 @@
             
             dispatch_group_async(group_twitter, queue, ^{
                 
-                NSString*urlStr=[NSString stringWithFormat:@"%@",[dataDic objectForKey:@"USER_ICON"]];
-                [urlStrArray addObject:urlStr];
+                [threadLock lock];
+                
+                @try {
+                    
+                    NSString*urlStr=[NSString stringWithFormat:@"%@",[dataDic objectForKey:@"USER_ICON"]];
+                    [urlStrArray addObject:urlStr];
+                
+                }
+                @finally {
+                    
+                    [threadLock unlock];
+                
+                }
                 
             });
             
@@ -94,7 +119,7 @@
 #pragma mark - RKGetDataWithNSURLSession Delegate
 -(void)getProgressInDictionary:(NSDictionary *)progressValueInDic withAllTaskCount:(NSNumber *)taskCount{
     
-    float progress = 0.0;
+    double progress = 0.0;
     
     for (NSNumber*num in [progressValueInDic allValues]) {
     
@@ -102,24 +127,24 @@
         
     }
     
-    NSLog(@"All task is progressing.....%f persent",progress/[taskCount floatValue]*100);
+    NSLog(@"All task is progressing.....%f persent",progress/[taskCount floatValue]);
 
 }
 -(void)completeGetData:(NSData *)data withErrorType:(RKGetDataErrorType)errorType CompeteReciveUrl:(NSString *)urlStr AllTaskCount:(NSNumber *)taskCount{
     
-    NSLog(@"=======================COMPLETE========================");
-    NSLog(@"errorType=%ld",errorType);
-    NSLog(@"%@",urlStr);
-    NSLog(@"all task count=%@",taskCount);
-    NSLog(@"complete recive data %ld byte",data.length);
+//    NSLog(@"=======================COMPLETE========================");
+//    NSLog(@"errorType=%ld",errorType);
+//    NSLog(@"%@",urlStr);
+//    NSLog(@"all task count=%@",taskCount);
+//    NSLog(@"complete recive data %ld byte",data.length);
     
 }
 -(void)didComplteTask:(RKTaskCompletedCondition)condition taskURL:(NSString *)urlStr withError:(NSError *)error{
     
-    NSLog(@"=======================Finish_task========================");
-    NSLog(@"%ld",condition);
-    NSLog(@"%@",urlStr);
-    NSLog(@"%@",error);
+//    NSLog(@"=======================Finish_task========================");
+//    NSLog(@"%ld",condition);
+//    NSLog(@"%@",urlStr);
+//    NSLog(@"%@",error);
     
 }
 @end
