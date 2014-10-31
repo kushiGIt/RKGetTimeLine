@@ -63,28 +63,39 @@
         
         dispatch_group_async(group, queue, ^{
             
-            NSMutableDictionary*dic=[[NSMutableDictionary alloc]init];
+            NSLock*myLock;
+            [myLock lock];
             
-            NSString*twitterTextStr=[NSString stringWithFormat:@"%@",[tweet objectForKey:@"text"]];
-            [dic setObject:twitterTextStr forKey:@"TEXT"];
+            @try {
+                
+                NSMutableDictionary*dic=[[NSMutableDictionary alloc]init];
+                
+                NSString*twitterTextStr=[NSString stringWithFormat:@"%@",[tweet objectForKey:@"text"]];
+                [dic setObject:twitterTextStr forKey:@"TEXT"];
+                
+                NSDictionary *user = tweet[@"user"];
+                [dic setObject:user[@"screen_name"] forKey:@"USER_NAME"];
+                [dic setObject:user[@"profile_image_url"] forKey:@"USER_ICON"];
+                
+                //TwiietrDate→NSDate Convert
+                NSDateFormatter* inFormat = [[NSDateFormatter alloc] init];
+                NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+                [inFormat setLocale:locale];
+                [inFormat setDateFormat:@"EEE MMM dd HH:mm:ss Z yyyy"];
+                NSString*original_Twitter_Date=[NSString stringWithFormat:@"%@",tweet[@"created_at"]];
+                NSDate *date =[inFormat dateFromString:original_Twitter_Date];
+                
+                [dic setObject:date forKey:@"POST_DATE"];
+                
+                [dic setObject:@"TWITTER" forKey:@"TYPE"];
+                [array addObject:dic];
             
-            NSDictionary *user = tweet[@"user"];
-            [dic setObject:user[@"screen_name"] forKey:@"USER_NAME"];
-            [dic setObject:user[@"profile_image_url"] forKey:@"USER_ICON"];
+            }
+            @finally {
+                
+                [myLock unlock];
             
-            //TwiietrDate→NSDate Convert
-            NSDateFormatter* inFormat = [[NSDateFormatter alloc] init];
-            NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-            [inFormat setLocale:locale];
-            [inFormat setDateFormat:@"EEE MMM dd HH:mm:ss Z yyyy"];
-            NSString*original_Twitter_Date=[NSString stringWithFormat:@"%@",tweet[@"created_at"]];
-            NSDate *date =[inFormat dateFromString:original_Twitter_Date];
-            
-            [dic setObject:date forKey:@"POST_DATE"];
-            
-            [dic setObject:@"TWITTER" forKey:@"TYPE"];
-            
-            [array addObject:dic];
+            }
         
         });
         

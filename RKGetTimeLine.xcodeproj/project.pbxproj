@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		770E31DF19FD0E3800B426A1 /* RKGetDataWithNSURLSettion.m in Sources */ = {isa = PBXBuildFile; fileRef = 770E31DE19FD0E3800B426A1 /* RKGetDataWithNSURLSettion.m */; };
 		7740FDA819FB2C2500C56F58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740FDA719FB2C2500C56F58 /* main.m */; };
 		7740FDAB19FB2C2500C56F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740FDAA19FB2C2500C56F58 /* AppDelegate.m */; };
 		7740FDAE19FB2C2500C56F58 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740FDAD19FB2C2500C56F58 /* ViewController.m */; };
@@ -30,8 +29,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		770E31DD19FD0E3800B426A1 /* RKGetDataWithNSURLSettion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RKGetDataWithNSURLSettion.h; path = RKGetTimeLineTests/RKGetDataWithNSURLSettion.h; sourceTree = "<group>"; };
-		770E31DE19FD0E3800B426A1 /* RKGetDataWithNSURLSettion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RKGetDataWithNSURLSettion.m; path = RKGetTimeLineTests/RKGetDataWithNSURLSettion.m; sourceTree = "<group>"; };
 		7740FDA219FB2C2500C56F58 /* RKGetTimeLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKGetTimeLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7740FDA619FB2C2500C56F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7740FDA719FB2C2500C56F58 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -72,7 +69,6 @@
 		7740FD9919FB2C2500C56F58 = {
 			isa = PBXGroup;
 			children = (
-				779CCFC319FE915900F01491 /* GetImageData */,
 				7740FDA419FB2C2500C56F58 /* RKGetTimeLine */,
 				7740FDBE19FB2C2500C56F58 /* RKGetTimeLineTests */,
 				7740FDA319FB2C2500C56F58 /* Products */,
@@ -140,15 +136,6 @@
 			);
 			name = GetClass;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		779CCFC319FE915900F01491 /* GetImageData */ = {
-			isa = PBXGroup;
-			children = (
-				770E31DD19FD0E3800B426A1 /* RKGetDataWithNSURLSettion.h */,
-				770E31DE19FD0E3800B426A1 /* RKGetDataWithNSURLSettion.m */,
-			);
-			name = GetImageData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,7 +238,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				770E31DF19FD0E3800B426A1 /* RKGetDataWithNSURLSettion.m in Sources */,
 				7740FDAE19FB2C2500C56F58 /* ViewController.m in Sources */,
 				7740FDAB19FB2C2500C56F58 /* AppDelegate.m in Sources */,
 				7792F57919FBFCB400505445 /* RKGetTwitterTimeLine.m in Sources */,

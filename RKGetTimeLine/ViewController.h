@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "RKGetFacebookTimeLine.h"
 #import "RKGetTwitterTimeline.h"
-#import "RKGetDataWithNSURLSettion.h"
 
-@interface ViewController : UIViewController<RKGetDataWithURLSettionDelegate>
+@interface ViewController : UIViewController
 
 
 @end

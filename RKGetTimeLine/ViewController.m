@@ -105,46 +105,11 @@
     }
     
     NSLog(@"Process for receiving the data has been completed all.");
-    
-    RKGetDataWithURLSettion*testSettion=[[RKGetDataWithURLSettion alloc]init];
-    testSettion.delegate=self;
-    
-    [testSettion getDataWithUrlArray:[[NSArray alloc]initWithArray:urlStrArray]];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma mark - RKGetDataWithNSURLSession Delegate
--(void)getProgressInDictionary:(NSDictionary *)progressValueInDic withAllTaskCount:(NSNumber *)taskCount{
-    
-    double progress = 0.0;
-    
-    for (NSNumber*num in [progressValueInDic allValues]) {
-    
-        progress=progress+[num floatValue];
-        
-    }
-    
-    NSLog(@"All task is progressing.....%f persent",progress/[taskCount floatValue]);
 
-}
--(void)completeGetData:(NSData *)data withErrorType:(RKGetDataErrorType)errorType CompeteReciveUrl:(NSString *)urlStr AllTaskCount:(NSNumber *)taskCount{
-    
-    NSLog(@"=======================COMPLETE========================");
-//    NSLog(@"errorType=%ld",errorType);
-//    NSLog(@"%@",urlStr);
-//    NSLog(@"all task count=%@",taskCount);
-//    NSLog(@"complete recive data %ld byte",data.length);
-    
-}
--(void)didComplteTask:(RKTaskCompletedCondition)condition taskURL:(NSString *)urlStr withError:(NSError *)error{
-    
-//    NSLog(@"=======================Finish_task========================");
-//    NSLog(@"%ld",condition);
-//    NSLog(@"%@",urlStr);
-//    NSLog(@"%@",error);
-    
-}
 @end
