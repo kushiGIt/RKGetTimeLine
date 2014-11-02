@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "RKGetFacebookTimeLine.h"
 #import "RKGetTwitterTimeline.h"
+#import "RKDataDownloader.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<RKDataDownloaderDelegate>
 
 
 @end
