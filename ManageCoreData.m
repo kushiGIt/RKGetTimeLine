@@ -217,4 +217,51 @@
     return NULL;
     
 }
+#pragma mark - check date in entity
+-(NSArray*)checkDateInEntity:(NSString *)entityName isDelete:(BOOL)isDelete{
+    
+    NSDate*dateOneDayAgo=[NSDate dateWithTimeIntervalSinceNow:-1*24*60*60];
+    
+    NSManagedObjectContext*context=[[NSManagedObjectContext alloc]init];
+    context=[self createManagedObjectContext];
+    
+    NSEntityDescription*entity=[NSEntityDescription entityForName:entityName inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc]init];
+    [request setEntity:entity];
+    
+    NSPredicate *predicate =[NSPredicate predicateWithFormat:@"date <= %@",dateOneDayAgo];
+    [request setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *fetchResults = [context executeFetchRequest:request error:&error];
+    
+    NSMutableArray*resultsArray=[[NSMutableArray alloc]init];
+    
+    if([fetchResults count] > 0) {
+        
+        for (DataLifeTime *ent in fetchResults) {
+            
+            NSDictionary*dic=[[NSDictionary alloc]initWithObjectsAndKeys:ent.key,@"key",ent.data,@"data",ent.object_LifeTime,@"object_LifeTime",nil];
+            [resultsArray addObject:dic];
+            
+            if (isDelete) {
+                
+                [self deleteCoreDataObjectInEntity:@"DataLifeTime" withKey:[NSString stringWithFormat:@"%@",ent.key]];
+                
+            }
+            
+        }
+        
+        return resultsArray;
+        
+    } else {
+        
+        NSLog(@"Data is None!");
+        
+    }
+    
+    return nil;
+    
+}
 @end

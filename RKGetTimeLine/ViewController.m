@@ -16,6 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if ([NSDate dateWithTimeIntervalSinceNow:-1*24*60*60]>=[NSDate date]) {
+        NSLog(@"test");
+    }
+    if ([NSDate dateWithTimeIntervalSinceNow:-1*24*60*60]<=[NSDate date]) {
+        NSLog(@"test");
+    }
 
 }
 -(void)viewDidAppear:(BOOL)animated{
@@ -140,4 +147,5 @@
     
     
 }
+
 @end
