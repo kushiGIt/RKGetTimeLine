@@ -10,6 +10,10 @@
 #import <CoreData/CoreData.h>
 #import "DataLifeTime.h"
 
+typedef enum{
+    a
+}aaaaa;
+
 @class ManageCoreData;
 
 @protocol ManageCoreDataDelegate;
@@ -20,8 +24,10 @@
 
 @property id<ManageCoreDataDelegate>delegate;
 
--(void)setContextData:(NSData*)originalData forKey:(NSString*)keyStr WithObjectLifeTime:(NSDate*)objectLongevityDate ischeckDupulicationInEntity:(BOOL)ischeckDupulication;
+-(void)setContextData:(NSData*)originalData forKey:(NSString*)keyStr ObjectDeleteTime:(NSDate*)objectLongevityDate ischeckDupulicationInEntity:(BOOL)ischeckDupulication;
 -(void)deleteCoreDataObjectInEntity:(NSString *)entityName withKey:(NSString *)keyString;
 -(void)deleteEntityData:(NSString *)entityName;
 -(NSArray*)getContextInEntity:(NSString *)entityName withKey:(NSString *)keyString;
+-(NSArray*)checkDateInEntity:(NSString *)entityName isDelete:(BOOL)isDelete;
+-(NSManagedObject *)checkDupulicationInEntity:(NSString *)entityName withKey:(NSString *)keyString;
 @end

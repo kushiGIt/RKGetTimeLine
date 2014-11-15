@@ -128,71 +128,81 @@
                     [request performRequestWithHandler:^(NSData*responseData,NSHTTPURLResponse*urlResponse,NSError*error){
                         
                         if (error) {
-                            NSLog(@"%@",error);
-                        }
+                            
+                            NSLog(@"twitter request...Failured");
+                            
+                            if (handler) {
+                                handler(nil,error,RKGetTwiiterTimeLineErrorType_TwitterServerError);
+                            }
                         
-                        if (urlResponse) {
-                            NSError *jsonError;
-                            NSLog(@"Completion of receiving Twitter timeline data. Byte=%lu byte.",(unsigned long)responseData.length);
+                        }else{
                             
-                            NSMutableArray*responseArray=[NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&jsonError];
-                            
-                            if (jsonError) {
+                            if (urlResponse) {
+                                NSError *jsonError;
+                                NSLog(@"Completion of receiving Twitter timeline data. Byte=%lu byte.",(unsigned long)responseData.length);
                                 
-                                NSLog(@"%s,%@",__func__,jsonError);
+                                NSMutableArray*responseArray=[NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&jsonError];
                                 
-                            }else{
+                                //NSLog(@"%@",responseArray);
                                 
-                                if ([[[responseArray valueForKey:@"errors"]valueForKey:@"message"]isEqual:[NSNull null]]) {
+                                if (jsonError) {
                                     
-                                    NSLog(@"twitter request...Failured");
-                                    NSString*errorCode=[NSString stringWithFormat:@"%@",[[responseArray valueForKey:@"errors"]valueForKey:@"code"][0]];
-                                    NSString*errorMessege=[NSString stringWithFormat:@"%@",[[responseArray valueForKey:@"errors"]valueForKey:@"message"][0]];
-                                    NSLog(@"%@",errorCode);
-                                    NSLog(@"%@",errorMessege);
+                                    NSLog(@"%s,%@",__func__,jsonError);
                                     
-                                    NSMutableDictionary*errDetails = [NSMutableDictionary dictionary];
-                                    [errDetails setValue:errorMessege forKey:NSLocalizedDescriptionKey];
-                                    NSError*twitterError = [NSError errorWithDomain:@"https://api.twitter.com/1.1/statuses/home_timeline.json" code:[errorCode integerValue] userInfo:errDetails];
-                                    
-                                    if (handler) {
-                                        handler(nil,twitterError,RKGetTwiiterTimeLineErrorType_TwitterServerError);
-                                    }
-                                
                                 }else{
                                     
-                                    if (responseArray.count==0) {
+                                    if ([responseArray valueForKey:@"errors"]) {
                                         
-                                        NSLog(@"There is no new data.");
+                                        NSLog(@"twitter request...Failured");
+                                        NSString*errorCode=[NSString stringWithFormat:@"%@",[[responseArray valueForKey:@"errors"]valueForKey:@"code"][0]];
+                                        NSString*errorMessege=[NSString stringWithFormat:@"%@",[[responseArray valueForKey:@"errors"]valueForKey:@"message"][0]];
+                                        NSLog(@"%@",errorCode);
+                                        NSLog(@"%@",errorMessege);
                                         
                                         NSMutableDictionary*errDetails = [NSMutableDictionary dictionary];
-                                        [errDetails setValue:@"There is no new data." forKey:NSLocalizedDescriptionKey];
-                                        NSError*twitterError = [NSError errorWithDomain:@"https://api.twitter.com/1.1/statuses/home_timeline.json" code:100 userInfo:errDetails];
+                                        [errDetails setValue:errorMessege forKey:NSLocalizedDescriptionKey];
+                                        NSError*twitterError = [NSError errorWithDomain:@"https://api.twitter.com/1.1/statuses/home_timeline.json" code:[errorCode integerValue] userInfo:errDetails];
                                         
                                         if (handler) {
-                                            handler(nil,twitterError,RKGetTwiiterTimeLineErrorType_DataIsNull);
+                                            handler(nil,twitterError,RKGetTwiiterTimeLineErrorType_TwitterServerError);
                                         }
                                         
                                     }else{
                                         
-                                        if (handler) {
-                                            handler(responseArray,nil,RKGetTwiiterTimeLineErrorType_Success);
+                                        if (responseArray.count==0) {
+                                            
+                                            NSLog(@"There is no new data.");
+                                            
+                                            NSMutableDictionary*errDetails = [NSMutableDictionary dictionary];
+                                            [errDetails setValue:@"There is no new data." forKey:NSLocalizedDescriptionKey];
+                                            NSError*twitterError = [NSError errorWithDomain:@"https://api.twitter.com/1.1/statuses/home_timeline.json" code:100 userInfo:errDetails];
+                                            
+                                            if (handler) {
+                                                handler(nil,twitterError,RKGetTwiiterTimeLineErrorType_DataIsNull);
+                                            }
+                                            
+                                        }else{
+                                            
+                                            if (handler) {
+                                                handler(responseArray,nil,RKGetTwiiterTimeLineErrorType_Success);
+                                            }
+                                            
                                         }
                                         
                                     }
                                     
                                 }
                                 
-                            }
-                            
-                        }else{
-                            
-                            NSMutableDictionary*errDetails = [NSMutableDictionary dictionary];
-                            [errDetails setValue:@"There was no response from the server." forKey:NSLocalizedDescriptionKey];
-                            NSError*twitterError = [NSError errorWithDomain:@"https://api.twitter.com/1.1/statuses/home_timeline.json" code:101 userInfo:errDetails];
-                            
-                            if (handler) {
-                                handler(nil,twitterError,RKGetTwiiterTimeLineErrorType_RequestError);
+                            }else{
+                                
+                                NSMutableDictionary*errDetails = [NSMutableDictionary dictionary];
+                                [errDetails setValue:@"There was no response from the server." forKey:NSLocalizedDescriptionKey];
+                                NSError*twitterError = [NSError errorWithDomain:@"https://api.twitter.com/1.1/statuses/home_timeline.json" code:101 userInfo:errDetails];
+                                
+                                if (handler) {
+                                    handler(nil,twitterError,RKGetTwiiterTimeLineErrorType_RequestError);
+                                }
+                                
                             }
                             
                         }

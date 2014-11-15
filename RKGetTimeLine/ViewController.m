@@ -16,13 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    if ([NSDate dateWithTimeIntervalSinceNow:-1*24*60*60]>=[NSDate date]) {
-        NSLog(@"test");
-    }
-    if ([NSDate dateWithTimeIntervalSinceNow:-1*24*60*60]<=[NSDate date]) {
-        NSLog(@"test");
-    }
 
 }
 -(void)viewDidAppear:(BOOL)animated{
@@ -115,6 +108,37 @@
     
     NSLog(@"Start get image data.");
     
+    ManageCoreData*mcd=[[ManageCoreData alloc]init];
+    NSMutableIndexSet*indexSet=[[NSMutableIndexSet alloc]init];
+    NSUInteger index=0;
+    NSLock *coredataLock=[[NSLock alloc]init];
+    
+    
+    for (NSString*urlStr in urlStrArray) {
+        
+        [coredataLock lock];
+        
+        @try {
+            
+            if ([mcd checkDupulicationInEntity:@"DataLifeTime" withKey:urlStr]!=NULL) {
+                
+                [indexSet addIndex:index];
+                
+            }
+            
+            index++;
+            
+        }
+        @finally {
+            
+            [coredataLock unlock];
+        
+        }
+        
+    }
+    
+    [urlStrArray removeObjectsAtIndexes:indexSet];
+    
     RKDataDownloader*dataDownloader=[[RKDataDownloader alloc]initWithUrlArray_defaults:[RKDataDownloader cheakDuplicationURLString:urlStrArray]];
     dataDownloader.delegate=self;
     [dataDownloader startDownloads];
@@ -136,14 +160,18 @@
   });
     
 }
--(void)didFinishDownloadData:(NSData *)data withError:(NSError *)readingDataError dataWithURL:(NSString *)urlStr{
+-(void)didFinishDownloadData:(NSData *)data withError:(NSError *)readingDataError dataWithUrl:(NSString *)urlStr{
     
-    NSLog(@"complete recive data.Data size is %ld byte.",data.length);
+    NSDate*now=[NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone systemTimeZone]secondsFromGMT]];
     
+    ManageCoreData*mcd=[[ManageCoreData alloc]init];
+    [mcd setContextData:data forKey:urlStr ObjectDeleteTime:now ischeckDupulicationInEntity:YES];
+
 }
 -(void)didFinishAllDownloadsWithDataDictinary:(NSDictionary *)dataDic withErrorDic:(NSDictionary *)errorDic{
     
-    NSLog(@"%@",dataDic.allKeys);
+    ManageCoreData*mcd=[[ManageCoreData alloc]init];
+    NSLog(@"%@",[mcd checkDateInEntity:@"DataLifeTime" isDelete:NO]);
     
     
 }

@@ -138,13 +138,12 @@
         
         __block NSError*readingDataError;
         __block NSData*downloededData;
-        __block NSString*urlStr;
+        __block NSString*urlStr=[NSString stringWithFormat:@"%@",[[downloadTask originalRequest]URL]];
         
         dispatch_semaphore_t semaphone =dispatch_semaphore_create(0);
         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),^{
             
             downloededData=[NSData dataWithContentsOfURL:location options:NSDataReadingUncached error:&readingDataError];
-            urlStr=[NSString stringWithFormat:@"%@",[[downloadTask originalRequest]URL]];
             
             if (downloededData.length==0) {
                 

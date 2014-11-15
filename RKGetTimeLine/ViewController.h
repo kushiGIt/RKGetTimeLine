@@ -10,6 +10,7 @@
 #import "RKGetFacebookTimeLine.h"
 #import "RKGetTwitterTimeline.h"
 #import "RKDataDownloader.h"
+#import "ManageCoreData.h"
 
 @interface ViewController : UIViewController<RKDataDownloaderDelegate>
 

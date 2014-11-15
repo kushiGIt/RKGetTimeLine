@@ -49,7 +49,7 @@
     
 }
 #pragma mark  - save
--(void)setContextData:(NSData*)originalData forKey:(NSString*)keyStr WithObjectLifeTime:(NSDate*)objectLongevityDate ischeckDupulicationInEntity:(BOOL)ischeckDupulication{
+-(void)setContextData:(NSData*)originalData forKey:(NSString*)keyStr ObjectDeleteTime:(NSDate*)objectLongevityDate ischeckDupulicationInEntity:(BOOL)ischeckDupulication{
     
     if (ischeckDupulication) {
         
@@ -220,7 +220,7 @@
 #pragma mark - check date in entity
 -(NSArray*)checkDateInEntity:(NSString *)entityName isDelete:(BOOL)isDelete{
     
-    NSDate*dateOneDayAgo=[NSDate dateWithTimeIntervalSinceNow:-1*24*60*60];
+    NSDate*date=[[NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone systemTimeZone]secondsFromGMT]]dateByAddingTimeInterval:1];
     
     NSManagedObjectContext*context=[[NSManagedObjectContext alloc]init];
     context=[self createManagedObjectContext];
@@ -230,7 +230,7 @@
     NSFetchRequest *request = [[NSFetchRequest alloc]init];
     [request setEntity:entity];
     
-    NSPredicate *predicate =[NSPredicate predicateWithFormat:@"date <= %@",dateOneDayAgo];
+    NSPredicate *predicate =[NSPredicate predicateWithFormat:@"object_LifeTime <= %@",date];
     [request setPredicate:predicate];
     
     NSError *error = nil;
