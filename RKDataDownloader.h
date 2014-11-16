@@ -62,9 +62,15 @@
  *
  *  @param data             get from tmp file
  *  @param readingDataError get error when read from tmp file
+ *  @param urkStr           get data url
  */
 -(void)didFinishDownloadData:(NSData*)data withError:(NSError*)readingDataError dataWithUrl:(NSString*)urlStr;
-
+/**
+ *  Call this methods when finished all tasks. もし-(id)initWithUrlArray_defaults:(NSArray *)urlArray;で第一関数にnilをセットしたらNULLが第一、第二関数に代入されます。その場合は-(void)startDownloadsを実行した直後に、このメソッドが呼ばれます。
+ *
+ *  @param data             get from tmp file
+ *  @param readingDataError get error when read from tmp file
+ */
 -(void)didFinishAllDownloadsWithDataDictinary:(NSDictionary*)dataDic withErrorDic:(NSDictionary*)errorDic;
 
 @end

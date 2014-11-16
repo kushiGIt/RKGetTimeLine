@@ -21,127 +21,49 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
     
-    NSLock*threadLock=[[NSLock alloc]init];
-    
-    __block int isProgress=0;
-    __block NSMutableArray*urlStrArray=[[NSMutableArray alloc]init];
-    
-    RKGetFacebookTimeLine*test_facebook=[[RKGetFacebookTimeLine alloc]init];
-    [test_facebook getFacebookTimelineNewlyWithCompletion:^(NSArray*array,NSError*error){
-        
-        dispatch_group_t group_facebook = dispatch_group_create();
-        
-        for (NSDictionary*dataDic in array) {
-            
-            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            
-            dispatch_group_async(group_facebook, queue, ^{
-                
-                [threadLock lock];
-                
-                @try {
-                    
-                    NSString*urlStr=[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture",[dataDic objectForKey:@"USER_ID"]];
-                    [urlStrArray addObject:urlStr];
-                
-                }
-                
-                @finally {
-                    
-                    [threadLock unlock];
-                
-                }
-                                 
-            });
-            
-        }
-        
-        dispatch_group_wait(group_facebook, DISPATCH_TIME_FOREVER);
-        
-        NSLog(@"facebook task...done");
-        
-        isProgress++;
-    }];
-    
-    RKGetTwitterTimeline*test_twitter=[[RKGetTwitterTimeline alloc]init];
-    [test_twitter getFacebookTimelineNewlyWithCompletion:^(NSArray*array,NSError*error){
-        
-        dispatch_group_t group_twitter = dispatch_group_create();
-        
-        for (NSDictionary*dataDic in array) {
-            
-            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-            
-            dispatch_group_async(group_twitter, queue, ^{
-                
-                [threadLock lock];
-                
-                @try {
-                    
-                    NSString*urlStr=[NSString stringWithFormat:@"%@",[dataDic objectForKey:@"USER_ICON"]];
-                    [urlStrArray addObject:urlStr];
-                
-                }
-                @finally {
-                    
-                    [threadLock unlock];
-                
-                }
-                
-            });
-            
-        }
-        
-        dispatch_group_wait(group_twitter, DISPATCH_TIME_FOREVER);
-        
-        NSLog(@"twitter task...done");
-        
-        isProgress++;
-    }];
-    
-    
-    while(isProgress<2){
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1f]];
-    }
-    
-    NSLog(@"Process for receiving the data has been completed all.");
-    
-    NSLog(@"Start get image data.");
-    
     ManageCoreData*mcd=[[ManageCoreData alloc]init];
-    NSMutableIndexSet*indexSet=[[NSMutableIndexSet alloc]init];
-    NSUInteger index=0;
-    NSLock *coredataLock=[[NSLock alloc]init];
+
+    [mcd checkDateInEntity:@"DataLifeTime" isDelete:YES];
     
-    
-    for (NSString*urlStr in urlStrArray) {
+    [GetAllTimeLine getAllTimeLine:^(NSMutableArray*urlStrArray,NSMutableArray*timelineDataArray){
         
-        [coredataLock lock];
+        NSLog(@"Start get image data.");
         
-        @try {
+        NSMutableIndexSet*indexSet=[[NSMutableIndexSet alloc]init];
+        NSUInteger index=0;
+        NSLock *coredataLock=[[NSLock alloc]init];
+        
+        
+        for (NSString*urlStr in urlStrArray) {
             
-            if ([mcd checkDupulicationInEntity:@"DataLifeTime" withKey:urlStr]!=NULL) {
+            [coredataLock lock];
+            
+            @try {
                 
-                [indexSet addIndex:index];
+                if ([mcd checkDupulicationInEntity:@"DataLifeTime" withKey:urlStr]!=NULL) {
+                    
+                    [indexSet addIndex:index];
+                    
+                }
+                
+                index++;
+                
+            }
+            @finally {
+                
+                [coredataLock unlock];
                 
             }
             
-            index++;
-            
-        }
-        @finally {
-            
-            [coredataLock unlock];
-        
         }
         
-    }
-    
-    [urlStrArray removeObjectsAtIndexes:indexSet];
-    
-    RKDataDownloader*dataDownloader=[[RKDataDownloader alloc]initWithUrlArray_defaults:[RKDataDownloader cheakDuplicationURLString:urlStrArray]];
-    dataDownloader.delegate=self;
-    [dataDownloader startDownloads];
+        [urlStrArray removeObjectsAtIndexes:indexSet];
+        
+        RKDataDownloader*dataDownloader=[[RKDataDownloader alloc]initWithUrlArray_defaults:[RKDataDownloader cheakDuplicationURLString:urlStrArray]];
+        dataDownloader.delegate=self;
+        [dataDownloader startDownloads];
+        
+    }];
     
 }
 
@@ -165,14 +87,13 @@
     NSDate*now=[NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone systemTimeZone]secondsFromGMT]];
     
     ManageCoreData*mcd=[[ManageCoreData alloc]init];
-    [mcd setContextData:data forKey:urlStr ObjectDeleteTime:now ischeckDupulicationInEntity:YES];
+    [mcd setContextData:data forKey:urlStr ObjectDeleteTime:[now dateByAddingTimeInterval:60*60*24] ischeckDupulicationInEntity:YES];
 
 }
 -(void)didFinishAllDownloadsWithDataDictinary:(NSDictionary *)dataDic withErrorDic:(NSDictionary *)errorDic{
     
-    ManageCoreData*mcd=[[ManageCoreData alloc]init];
-    NSLog(@"%@",[mcd checkDateInEntity:@"DataLifeTime" isDelete:NO]);
-    
+    //ManageCoreData*mcd=[[ManageCoreData alloc]init];
+    //NSLog(@"%@",[mcd checkDateInEntity:@"DataLifeTime" isDelete:NO]);
     
 }
 

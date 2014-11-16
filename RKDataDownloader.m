@@ -25,6 +25,8 @@
 
 @property (nonatomic) NSMutableDictionary*completeDataErrorDic;
 
+@property (nonatomic) BOOL isNeedDownload;
+
 @property BOOL isInitWithArray;
 
 @end
@@ -38,28 +40,38 @@
     dispatch_semaphore_t semaphone =dispatch_semaphore_create(0);
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),^{
         
+        self.isInitWithArray=YES;
+        
         if (self==[super init]) {
             
-            self.taskDataDic=[[NSMutableDictionary alloc]init];
-            self.completeDataErrorDic=[[NSMutableDictionary alloc]init];
-            self.complrteDataDic=[[NSMutableDictionary alloc]init];
-            
-            for (NSString*sorceURL in [self encodeUrlFromJapaneseUrl:urlArray]) {
+            if (urlArray.count==0) {
                 
-                [self.taskDataDic setObject:[NSNumber numberWithDouble:0.0] forKey:sorceURL];
+                self.isNeedDownload=NO;
+                
+            }else{
+                
+                self.taskDataDic=[[NSMutableDictionary alloc]init];
+                self.completeDataErrorDic=[[NSMutableDictionary alloc]init];
+                self.complrteDataDic=[[NSMutableDictionary alloc]init];
+                
+                for (NSString*sorceURL in [self encodeUrlFromJapaneseUrl:urlArray]) {
+                    
+                    [self.taskDataDic setObject:[NSNumber numberWithDouble:0.0] forKey:sorceURL];
+                    
+                }
+                
+                self.taskCount=(double)self.taskDataDic.count;
+                
+                NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"com.RKDownloader"];
+                sessionConfiguration.HTTPMaximumConnectionsPerHost = 5;
+                
+                self.session=[NSURLSession sessionWithConfiguration:sessionConfiguration delegate:(id)self delegateQueue:nil];
+                
+                self.completeTaskCount=0;
+                
+                self.isNeedDownload=YES;
                 
             }
-            
-            self.taskCount=(double)self.taskDataDic.count;
-            
-            NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"com.RKDownloader"];
-            sessionConfiguration.HTTPMaximumConnectionsPerHost = 5;
-            
-            self.session=[NSURLSession sessionWithConfiguration:sessionConfiguration delegate:(id)self delegateQueue:nil];
-            
-            self.isInitWithArray=YES;
-            
-            self.completeTaskCount=0;
             
         }
         
@@ -73,31 +85,41 @@
 }
 -(id)initWithUrlArray_defaults:(NSArray *)urlArray{
     
+    self.isInitWithArray=YES;
+    
     dispatch_semaphore_t semaphone =dispatch_semaphore_create(0);
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),^{
         
         if (self==[super init]) {
             
-            self.taskDataDic=[[NSMutableDictionary alloc]init];
-            self.completeDataErrorDic=[[NSMutableDictionary alloc]init];
-            self.complrteDataDic=[[NSMutableDictionary alloc]init];
-            
-            for (NSString*sorceURL in [self encodeUrlFromJapaneseUrl:urlArray]) {
+            if (urlArray.count==0) {
                 
-                [self.taskDataDic setObject:[NSNumber numberWithDouble:0.0] forKey:sorceURL];
+                self.isNeedDownload=NO;
+                
+            }else{
+                
+                self.taskDataDic=[[NSMutableDictionary alloc]init];
+                self.completeDataErrorDic=[[NSMutableDictionary alloc]init];
+                self.complrteDataDic=[[NSMutableDictionary alloc]init];
+                
+                for (NSString*sorceURL in [self encodeUrlFromJapaneseUrl:urlArray]) {
+                    
+                    [self.taskDataDic setObject:[NSNumber numberWithDouble:0.0] forKey:sorceURL];
+                    
+                }
+                
+                self.taskCount=(double)self.taskDataDic.count;
+                
+                NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+                sessionConfiguration.HTTPMaximumConnectionsPerHost = 5;
+                
+                self.session=[NSURLSession sessionWithConfiguration:sessionConfiguration delegate:(id)self delegateQueue:nil];
+                
+                self.completeTaskCount=0;
+                
+                self.isNeedDownload=YES;
                 
             }
-            
-            self.taskCount=(double)self.taskDataDic.count;
-            
-            NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-            sessionConfiguration.HTTPMaximumConnectionsPerHost = 5;
-            
-            self.session=[NSURLSession sessionWithConfiguration:sessionConfiguration delegate:(id)self delegateQueue:nil];
-            
-            self.isInitWithArray=YES;
-            
-            self.completeTaskCount=0;
             
         }
         
@@ -114,14 +136,26 @@
     
     if (self.isInitWithArray==YES) {
         
-        for (int i=0; i<[self.taskDataDic.allKeys count]; i++) {
+        if (self.isNeedDownload==NO) {
             
-            self.sessionTask = [self.session downloadTaskWithURL:[NSURL URLWithString:self.taskDataDic.allKeys[i]]];
-            [self.sessionTask resume];
+            if (self.completeTaskCount==self.taskCount) {
+                
+                [self.delegate didFinishAllDownloadsWithDataDictinary:NULL withErrorDic:NULL];
+                
+            }
+            
+        }else{
+            
+            for (int i=0; i<[self.taskDataDic.allKeys count]; i++) {
+                
+                self.sessionTask = [self.session downloadTaskWithURL:[NSURL URLWithString:self.taskDataDic.allKeys[i]]];
+                [self.sessionTask resume];
+                
+            }
+            
+            self.isInitWithArray=NO;
             
         }
-        
-        self.isInitWithArray=NO;
         
     }else{
         

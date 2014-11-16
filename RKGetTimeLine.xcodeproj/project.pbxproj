@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		771C4A0B1A18D1FA004F4358 /* GetAllTimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 771C4A0A1A18D1FA004F4358 /* GetAllTimeLine.m */; };
 		7740FDA819FB2C2500C56F58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740FDA719FB2C2500C56F58 /* main.m */; };
 		7740FDAB19FB2C2500C56F58 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740FDAA19FB2C2500C56F58 /* AppDelegate.m */; };
 		7740FDAE19FB2C2500C56F58 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740FDAD19FB2C2500C56F58 /* ViewController.m */; };
@@ -19,6 +20,8 @@
 		7763A6271A137F9E00CF4E60 /* DataLifeTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7763A6221A137F9E00CF4E60 /* DataLifeTime.m */; };
 		7763A6281A137F9E00CF4E60 /* ManageCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7763A6241A137F9E00CF4E60 /* ManageCoreData.m */; };
 		7763A6291A137F9E00CF4E60 /* RKDataLifeTimeModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7763A6251A137F9E00CF4E60 /* RKDataLifeTimeModel.xcdatamodeld */; };
+		7786226F1A177DAC00A4E84A /* Submission.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7786226E1A177DAC00A4E84A /* Submission.xib */; };
+		778622711A17801F00A4E84A /* testImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 778622701A17801F00A4E84A /* testImage.jpg */; };
 		7792F57919FBFCB400505445 /* RKGetTwitterTimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7792F57819FBFCB400505445 /* RKGetTwitterTimeLine.m */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		771C4A091A18D1FA004F4358 /* GetAllTimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetAllTimeLine.h; sourceTree = "<group>"; };
+		771C4A0A1A18D1FA004F4358 /* GetAllTimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetAllTimeLine.m; sourceTree = "<group>"; };
 		7740FDA219FB2C2500C56F58 /* RKGetTimeLine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RKGetTimeLine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7740FDA619FB2C2500C56F58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7740FDA719FB2C2500C56F58 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -55,6 +60,8 @@
 		7763A6231A137F9E00CF4E60 /* ManageCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageCoreData.h; sourceTree = "<group>"; };
 		7763A6241A137F9E00CF4E60 /* ManageCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageCoreData.m; sourceTree = "<group>"; };
 		7763A6261A137F9E00CF4E60 /* RKDataLifeTimeModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RKDataLifeTimeModel.xcdatamodel; sourceTree = "<group>"; };
+		7786226E1A177DAC00A4E84A /* Submission.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Submission.xib; sourceTree = "<group>"; };
+		778622701A17801F00A4E84A /* testImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testImage.jpg; sourceTree = "<group>"; };
 		7792F57719FBFCB400505445 /* RKGetTwitterTimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKGetTwitterTimeLine.h; sourceTree = "<group>"; };
 		7792F57819FBFCB400505445 /* RKGetTwitterTimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKGetTwitterTimeLine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,6 +87,8 @@
 		7740FD9919FB2C2500C56F58 = {
 			isa = PBXGroup;
 			children = (
+				778622701A17801F00A4E84A /* testImage.jpg */,
+				7786226E1A177DAC00A4E84A /* Submission.xib */,
 				7740FDA419FB2C2500C56F58 /* RKGetTimeLine */,
 				7740FDBE19FB2C2500C56F58 /* RKGetTimeLineTests */,
 				7740FDA319FB2C2500C56F58 /* Products */,
@@ -160,6 +169,8 @@
 		7763A6201A137F6900CF4E60 /* Get_timeline */ = {
 			isa = PBXGroup;
 			children = (
+				771C4A091A18D1FA004F4358 /* GetAllTimeLine.h */,
+				771C4A0A1A18D1FA004F4358 /* GetAllTimeLine.m */,
 				7740FDD419FB3AB100C56F58 /* RKGetFacebookTimeLine.h */,
 				7740FDD519FB3AB100C56F58 /* RKGetFacebookTimeLine.m */,
 				7792F57719FBFCB400505445 /* RKGetTwitterTimeLine.h */,
@@ -261,8 +272,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7740FDB119FB2C2500C56F58 /* Main.storyboard in Resources */,
+				778622711A17801F00A4E84A /* testImage.jpg in Resources */,
 				7740FDB619FB2C2500C56F58 /* LaunchScreen.xib in Resources */,
 				7740FDB319FB2C2500C56F58 /* Images.xcassets in Resources */,
+				7786226F1A177DAC00A4E84A /* Submission.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +300,7 @@
 				775A0F2B1A0CE530005AC919 /* RKDataDownloader.m in Sources */,
 				7763A6291A137F9E00CF4E60 /* RKDataLifeTimeModel.xcdatamodeld in Sources */,
 				7740FDA819FB2C2500C56F58 /* main.m in Sources */,
+				771C4A0B1A18D1FA004F4358 /* GetAllTimeLine.m in Sources */,
 				7740FDD619FB3AB100C56F58 /* RKGetFacebookTimeLine.m in Sources */,
 				7763A6281A137F9E00CF4E60 /* ManageCoreData.m in Sources */,
 			);

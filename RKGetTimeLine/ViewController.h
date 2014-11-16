@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RKGetFacebookTimeLine.h"
-#import "RKGetTwitterTimeline.h"
+#import "GetAllTimeLine.h"
 #import "RKDataDownloader.h"
 #import "ManageCoreData.h"
 
