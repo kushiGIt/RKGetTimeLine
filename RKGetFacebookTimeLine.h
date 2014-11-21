@@ -38,14 +38,13 @@ typedef NS_ENUM(NSUInteger,RKGetFacebookTimeLineError){
 };
 
 
-typedef void (^CallbackHandlerForServer_FACEBOOK)(NSArray *resultArray, NSError *error, RKGetFacebookTimeLineError errorType);
-typedef void (^CallbackHandlerForEdit_FACEBOOK)(NSArray*array, NSError *error);
-
-
 
 @class RKGetFacebookTimeLine;
 
 @protocol RKGetFacebookDelegate;
+
+typedef void (^CallbackHandlerForServer_FACEBOOK)(NSArray *resultArray, NSError *error, RKGetFacebookTimeLineError errorType);
+typedef void (^CallbackHandlerForEdit_FACEBOOK)(NSArray*array, NSError *error);
 
 @interface RKGetFacebookTimeLine : NSObject{
     

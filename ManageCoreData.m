@@ -49,29 +49,29 @@
     
 }
 #pragma mark  - save
--(void)setContextData:(NSData*)originalData forKey:(NSString*)keyStr ObjectDeleteTime:(NSDate*)objectLongevityDate ischeckDupulicationInEntity:(BOOL)ischeckDupulication{
+-(void)setContextData:(NSData*)originalData forKey:(NSString*)keyStr ObjectDeleteTime:(NSDate*)objectLongevityDate ischeckDupulicationInEntity:(BOOL)ischeckDupulication withEntityName:(NSString*)entityName{
     
     if (ischeckDupulication) {
         
-        NSManagedObject * checkForDuplicate = [self checkDupulicationInEntity:@"DataLifeTime"  withKey:keyStr];
+        NSManagedObject * checkForDuplicate = [self checkDupulicationInEntity:entityName  withKey:keyStr];
         
         if (checkForDuplicate!=NULL) {
             
-            [self deleteCoreDataObjectInEntity:@"DataLifeTime" withKey:keyStr];
+            [self deleteCoreDataObjectInEntity:entityName withKey:keyStr];
             
         }
         
     }
     
-    [self saveContext:originalData forKey:keyStr objectLifeTime:objectLongevityDate];
+    [self saveContext:originalData forKey:keyStr objectLifeTime:objectLongevityDate withEntityName:entityName];
     
 }
--(void)saveContext:(NSData*)data forKey:(NSString*)key objectLifeTime:(NSDate*)date{
+-(void)saveContext:(NSData*)data forKey:(NSString*)key objectLifeTime:(NSDate*)date withEntityName:(NSString*)entityName{
     
     NSManagedObjectContext*context=[[NSManagedObjectContext alloc]init];
     context=[self createManagedObjectContext];
     
-    DataLifeTime*dataInfo=[NSEntityDescription insertNewObjectForEntityForName:@"DataLifeTime" inManagedObjectContext:context];
+    DataLifeTime*dataInfo=[NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:context];
     
     dataInfo.data=data;
     dataInfo.key=key;

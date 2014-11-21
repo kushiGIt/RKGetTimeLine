@@ -16,6 +16,7 @@
 		7740FDB619FB2C2500C56F58 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7740FDB419FB2C2500C56F58 /* LaunchScreen.xib */; };
 		7740FDC219FB2C2500C56F58 /* RKGetTimeLineTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740FDC119FB2C2500C56F58 /* RKGetTimeLineTests.m */; };
 		7740FDD619FB3AB100C56F58 /* RKGetFacebookTimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7740FDD519FB3AB100C56F58 /* RKGetFacebookTimeLine.m */; };
+		7741D7A71A1C91DE0077CE19 /* GetInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7741D7A61A1C91DE0077CE19 /* GetInformation.m */; };
 		775A0F2B1A0CE530005AC919 /* RKDataDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 775A0F2A1A0CE530005AC919 /* RKDataDownloader.m */; };
 		7763A6271A137F9E00CF4E60 /* DataLifeTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7763A6221A137F9E00CF4E60 /* DataLifeTime.m */; };
 		7763A6281A137F9E00CF4E60 /* ManageCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7763A6241A137F9E00CF4E60 /* ManageCoreData.m */; };
@@ -53,6 +54,8 @@
 		7740FDC119FB2C2500C56F58 /* RKGetTimeLineTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RKGetTimeLineTests.m; sourceTree = "<group>"; };
 		7740FDD419FB3AB100C56F58 /* RKGetFacebookTimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKGetFacebookTimeLine.h; sourceTree = "<group>"; };
 		7740FDD519FB3AB100C56F58 /* RKGetFacebookTimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKGetFacebookTimeLine.m; sourceTree = "<group>"; };
+		7741D7A51A1C91DE0077CE19 /* GetInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetInformation.h; sourceTree = "<group>"; };
+		7741D7A61A1C91DE0077CE19 /* GetInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetInformation.m; sourceTree = "<group>"; };
 		775A0F291A0CE530005AC919 /* RKDataDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKDataDownloader.h; sourceTree = "<group>"; };
 		775A0F2A1A0CE530005AC919 /* RKDataDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKDataDownloader.m; sourceTree = "<group>"; };
 		7763A6211A137F9E00CF4E60 /* DataLifeTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataLifeTime.h; sourceTree = "<group>"; };
@@ -87,6 +90,8 @@
 		7740FD9919FB2C2500C56F58 = {
 			isa = PBXGroup;
 			children = (
+				7741D7A51A1C91DE0077CE19 /* GetInformation.h */,
+				7741D7A61A1C91DE0077CE19 /* GetInformation.m */,
 				778622701A17801F00A4E84A /* testImage.jpg */,
 				7786226E1A177DAC00A4E84A /* Submission.xib */,
 				7740FDA419FB2C2500C56F58 /* RKGetTimeLine */,
@@ -301,6 +306,7 @@
 				7763A6291A137F9E00CF4E60 /* RKDataLifeTimeModel.xcdatamodeld in Sources */,
 				7740FDA819FB2C2500C56F58 /* main.m in Sources */,
 				771C4A0B1A18D1FA004F4358 /* GetAllTimeLine.m in Sources */,
+				7741D7A71A1C91DE0077CE19 /* GetInformation.m in Sources */,
 				7740FDD619FB3AB100C56F58 /* RKGetFacebookTimeLine.m in Sources */,
 				7763A6281A137F9E00CF4E60 /* ManageCoreData.m in Sources */,
 			);

@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GetAllTimeLine.h"
-#import "RKDataDownloader.h"
-#import "ManageCoreData.h"
+#import "GetInformation.h"
 
 @interface ViewController : UIViewController<RKDataDownloaderDelegate>
 

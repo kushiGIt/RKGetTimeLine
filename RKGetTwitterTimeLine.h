@@ -20,13 +20,12 @@ typedef enum{
     RKGetTwiiterTimeLineErrorType_TwitterServerError=4
 }RKGetTwitterTimeLineError;
 
-typedef void (^CallbackHandlerForServer_TWITTER)(NSArray * resultArray, NSError *error, RKGetTwitterTimeLineError errorType);
-typedef void (^CallbackHandlerForEdit_TWITTER)(NSArray*array, NSError *error);
-
-
 @class RKGetTwitterTimeline;
 
 @protocol RKGetTwitterDelegate;
+
+typedef void (^CallbackHandlerForServer_TWITTER)(NSArray * resultArray, NSError *error, RKGetTwitterTimeLineError errorType);
+typedef void (^CallbackHandlerForEdit_TWITTER)(NSArray*array, NSError *error);
 
 @interface RKGetTwitterTimeline : NSObject
 

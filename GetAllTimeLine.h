@@ -10,10 +10,10 @@
 #import "RKGetFacebookTimeLine.h"
 #import "RKGetTwitterTimeLine.h"
 
-typedef void (^CallbackHandlerForGetInfo)(NSMutableArray*urlArray,NSMutableArray*timelineDataArray);
-
 @class GetAllTimeLine;
 @protocol GetAllTimeLineDelegate <NSObject>
+
+typedef void (^CallbackHandlerForGetInfo)(NSMutableArray*urlArray,NSMutableArray*timelineDataArray);
 
 @end
 

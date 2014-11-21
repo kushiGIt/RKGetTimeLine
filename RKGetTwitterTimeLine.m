@@ -143,15 +143,13 @@
                                 
                                 NSMutableArray*responseArray=[NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&jsonError];
                                 
-                                //NSLog(@"%@",responseArray);
-                                
                                 if (jsonError) {
                                     
                                     NSLog(@"%s,%@",__func__,jsonError);
                                     
                                 }else{
                                     
-                                    if ([responseArray valueForKey:@"errors"]) {
+                                    if (![[[[responseArray valueForKey:@"errors"]valueForKey:@"messege"]firstObject]isEqual:[NSNull null]]) {
                                         
                                         NSLog(@"twitter request...Failured");
                                         NSString*errorCode=[NSString stringWithFormat:@"%@",[[responseArray valueForKey:@"errors"]valueForKey:@"code"][0]];
