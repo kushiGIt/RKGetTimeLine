@@ -37,7 +37,7 @@ typedef void (^CallbackHandlerForEdit_TWITTER)(NSArray*array, NSError *error);
  *  @param handler       {void}
  */
 -(void)getTwitterTimelineFromServer:(NSDictionary*)parametersDic completion:(CallbackHandlerForServer_TWITTER)handler;
--(void)getFacebookTimelineNewlyWithCompletion:(CallbackHandlerForEdit_TWITTER)handler;
+-(void)getTwitterTimelineNewlyWithCompletion:(CallbackHandlerForEdit_TWITTER)handler;
 -(NSArray*)editTwitterTimeline:(NSArray*)responseArray;
 
 @end

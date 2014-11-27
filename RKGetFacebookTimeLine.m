@@ -33,6 +33,7 @@
                 if (handler) {
                     handler([[NSArray alloc]init],getTimelineFromServerError);
                 }
+                NSLog(@"%@",getTimelineFromServerError);
                 
                 break;
                 
@@ -100,6 +101,8 @@
                     
                 }
                 
+                [dic setObject:[NSString stringWithFormat:@"%@",[[[[[newsfeed valueForKey:@"likes"] valueForKey:@"paging"]valueForKey:@"cursors"]valueForKey:@"after"]objectAtIndex:i]] forKey:@"PAGING_KEY_AFTER"];
+                [dic setObject:[NSString stringWithFormat:@"%@",[[[[[newsfeed valueForKey:@"likes"] valueForKey:@"paging"]valueForKey:@"cursors"]valueForKey:@"before"]objectAtIndex:i]] forKey:@"PAGING_KEY_BEFORE"];
                 
                 //set type Ex.)facebook,twitter
                 [dic setObject:@"FACEBOOK" forKey:@"TYPE"];
@@ -140,7 +143,7 @@
                 NSString *accessToken = [facebookCredential oauthToken];
                 
                 NSURL*url=[NSURL URLWithString:@"https://graph.facebook.com/me/home"];
-                NSDictionary*parametersDic=[[NSDictionary alloc]initWithObjectsAndKeys:accessToken,@"access_token",@1000,@"limit", nil];
+                NSDictionary*parametersDic=[[NSDictionary alloc]initWithObjectsAndKeys:accessToken,@"access_token",@10,@"limit", nil];
                 
                 SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:url parameters:parametersDic];
                 request.account = facebookAccount;
@@ -158,6 +161,7 @@
                             NSLog(@"Completion of receiving Facebook timeline data. Byte=%lu byte.",(unsigned long)responseData.length);
                             
                             NSArray*responseArray=[NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:&jsonError];
+                            NSLog(@"array=%@",responseArray);
                             
                             if (jsonError) {
                                 

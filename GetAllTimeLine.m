@@ -57,7 +57,7 @@
     }];
     
     RKGetTwitterTimeline*test_twitter=[[RKGetTwitterTimeline alloc]init];
-    [test_twitter getFacebookTimelineNewlyWithCompletion:^(NSArray*array,NSError*error){
+    [test_twitter getTwitterTimelineNewlyWithCompletion:^(NSArray*array,NSError*error){
         
         [dataArray addObjectsFromArray:array];
         

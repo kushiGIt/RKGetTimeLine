@@ -16,12 +16,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
 }
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
+    
     GetInformation*gi=[[GetInformation alloc]init];
-    [gi getSubmission];
+    [gi setDelegate:self];
+    
+    [gi getSubmission:^(NSArray*array){
+        
+        NSLog(@"%@",[array lastObject]);
+        
+    }];
     
 }
 
@@ -29,6 +35,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+-(void)didFinishAllDownload{
+    NSLog(@"finish all download");
+}
 
 @end

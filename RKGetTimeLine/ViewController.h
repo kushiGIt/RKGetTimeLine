@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "GetInformation.h"
 
-@interface ViewController : UIViewController<RKDataDownloaderDelegate>
+@interface ViewController : UIViewController<GetInformationDelegate>
 
 
 @end

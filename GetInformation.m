@@ -9,11 +9,11 @@
 #import "GetInformation.h"
 
 @implementation GetInformation
--(void)getSubmission{
+-(void)getSubmission:(CallbackHandler)handler{
     
     ManageCoreData*mcd=[[ManageCoreData alloc]init];
     
-    NSLog(@"%@",[mcd checkDateInEntity:@"DataLifeTime" isDelete:YES]);
+    NSLog(@"Will delete CoreData object are %@",[mcd checkDateInEntity:@"DataLifeTime" isDelete:YES]);
     
     [GetAllTimeLine getAllTimeLine:^(NSMutableArray*urlStrArray,NSMutableArray*timelineDataArray){
         
@@ -53,6 +53,10 @@
         dataDownloader.delegate=self;
         [dataDownloader startDownloads];
         
+        if (handler) {
+            handler(timelineDataArray.copy);
+        }
+        
     }];
 
 }
@@ -81,6 +85,12 @@
     
     //ManageCoreData*mcd=[[ManageCoreData alloc]init];
     //NSLog(@"%@",[mcd checkDateInEntity:@"DataLifeTime" isDelete:NO]);
+    
+    if ([self.delegate respondsToSelector:@selector(didFinishAllDownload)]) {
+        
+        [self.delegate didFinishAllDownload];
+        
+    }
     
 }
 @end

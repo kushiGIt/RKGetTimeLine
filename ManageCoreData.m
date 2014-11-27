@@ -123,7 +123,7 @@
         
     } else {
         
-        NSLog(@"Data is None!");
+        NSLog(@"Search data from CoreData....no match data");
         
     }
     
@@ -257,7 +257,7 @@
         
     } else {
         
-        NSLog(@"Data is None!");
+        NSLog(@"Search data from CoreData....no match data");
         
     }
     

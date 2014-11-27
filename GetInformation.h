@@ -12,19 +12,23 @@
 #import "ManageCoreData.h"
 
 @class GetInformation;
-@protocol GetInformationDelegate <NSObject>
+@protocol GetInformationDelegate;
 
-typedef void (^CallbackHandler)(NSMutableArray*timelineDataArray);
-
-@end
+typedef void (^CallbackHandler)(NSArray*timelineDataArray);
 
 @interface GetInformation : NSObject<RKDataDownloaderDelegate>{
     
 }
 
--(void)getSubmission;
+@property id<GetInformationDelegate>delegate;
 
+-(void)getSubmission:(CallbackHandler)handler;
 
-//@property(nonatomic,weak)id<GetAllTimeLineDelegate>delegate;
+@end
+
+@protocol  GetInformationDelegate<NSObject>
+@optional
+
+-(void)didFinishAllDownload;
 
 @end

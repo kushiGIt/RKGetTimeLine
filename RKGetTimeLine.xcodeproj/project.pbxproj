@@ -21,8 +21,6 @@
 		7763A6271A137F9E00CF4E60 /* DataLifeTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 7763A6221A137F9E00CF4E60 /* DataLifeTime.m */; };
 		7763A6281A137F9E00CF4E60 /* ManageCoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7763A6241A137F9E00CF4E60 /* ManageCoreData.m */; };
 		7763A6291A137F9E00CF4E60 /* RKDataLifeTimeModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7763A6251A137F9E00CF4E60 /* RKDataLifeTimeModel.xcdatamodeld */; };
-		7786226F1A177DAC00A4E84A /* Submission.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7786226E1A177DAC00A4E84A /* Submission.xib */; };
-		778622711A17801F00A4E84A /* testImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 778622701A17801F00A4E84A /* testImage.jpg */; };
 		7792F57919FBFCB400505445 /* RKGetTwitterTimeLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7792F57819FBFCB400505445 /* RKGetTwitterTimeLine.m */; };
 /* End PBXBuildFile section */
 
@@ -63,8 +61,6 @@
 		7763A6231A137F9E00CF4E60 /* ManageCoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageCoreData.h; sourceTree = "<group>"; };
 		7763A6241A137F9E00CF4E60 /* ManageCoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageCoreData.m; sourceTree = "<group>"; };
 		7763A6261A137F9E00CF4E60 /* RKDataLifeTimeModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RKDataLifeTimeModel.xcdatamodel; sourceTree = "<group>"; };
-		7786226E1A177DAC00A4E84A /* Submission.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Submission.xib; sourceTree = "<group>"; };
-		778622701A17801F00A4E84A /* testImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testImage.jpg; sourceTree = "<group>"; };
 		7792F57719FBFCB400505445 /* RKGetTwitterTimeLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKGetTwitterTimeLine.h; sourceTree = "<group>"; };
 		7792F57819FBFCB400505445 /* RKGetTwitterTimeLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKGetTwitterTimeLine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,10 +86,6 @@
 		7740FD9919FB2C2500C56F58 = {
 			isa = PBXGroup;
 			children = (
-				7741D7A51A1C91DE0077CE19 /* GetInformation.h */,
-				7741D7A61A1C91DE0077CE19 /* GetInformation.m */,
-				778622701A17801F00A4E84A /* testImage.jpg */,
-				7786226E1A177DAC00A4E84A /* Submission.xib */,
 				7740FDA419FB2C2500C56F58 /* RKGetTimeLine */,
 				7740FDBE19FB2C2500C56F58 /* RKGetTimeLineTests */,
 				7740FDA319FB2C2500C56F58 /* Products */,
@@ -154,6 +146,8 @@
 		7740FDD719FB46FC00C56F58 /* GetClass */ = {
 			isa = PBXGroup;
 			children = (
+				7741D7A51A1C91DE0077CE19 /* GetInformation.h */,
+				7741D7A61A1C91DE0077CE19 /* GetInformation.m */,
 				7763A62A1A137FA800CF4E60 /* CoreData */,
 				774D91FE1A06534A00EA4A9A /* Downloader */,
 				7763A6201A137F6900CF4E60 /* Get_timeline */,
@@ -277,10 +271,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7740FDB119FB2C2500C56F58 /* Main.storyboard in Resources */,
-				778622711A17801F00A4E84A /* testImage.jpg in Resources */,
 				7740FDB619FB2C2500C56F58 /* LaunchScreen.xib in Resources */,
 				7740FDB319FB2C2500C56F58 /* Images.xcassets in Resources */,
-				7786226F1A177DAC00A4E84A /* Submission.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
