@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GetInformation.h"
+#import <FacebookSDK/FacebookSDK.h>
+#import "STTwitter.h"
 
-@interface ViewController : UIViewController<GetInformationDelegate>
+@interface ViewController : UIViewController<FBLoginViewDelegate,FBRequestConnectionDelegate>
 
 
 @end
